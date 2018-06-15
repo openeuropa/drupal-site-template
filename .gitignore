@@ -20,4 +20,5 @@
 /.idea/
 
 # Ignore local configuration files.
+/grumphp.yml
 /runner.yml
