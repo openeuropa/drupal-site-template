@@ -14,7 +14,7 @@
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.5",
-        "drupal/core": "~8.5.3",
+        "drupal/core": "~8.6",
         "drush/drush": "^9.0.0",
         "openeuropa/oe_profile": "dev-master",
         "openeuropa/oe_theme": "^0.4",
@@ -25,7 +25,7 @@
         "drupal/console": "^1.0.2",
         "openeuropa/code-review": "^0.2",
         "openeuropa/task-runner": "^0.5",
-        "webflo/drupal-core-require-dev": "~8.5.3"
+        "webflo/drupal-core-require-dev": "~8.6"
     },
     "conflict": {
         "drupal/drupal": "*"
