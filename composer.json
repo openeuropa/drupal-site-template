@@ -17,6 +17,7 @@
         "drupal/core": "~8.5.3",
         "drush/drush": "^9.0.0",
         "openeuropa/oe_profile": "dev-master",
+        "openeuropa/oe_theme": "^0.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },
@@ -45,6 +46,14 @@
         ]
     },
     "extra": {
+        "artifacts": {
+            "openeuropa/oe_theme": {
+                "dist": {
+                    "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.tar.gz",
+                    "type": "tar"
+                }
+            }
+        },
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
