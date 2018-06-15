@@ -3,12 +3,6 @@
     "description": "A template for setting up an OpenEuropa Drupal site.",
     "type": "project",
     "license": "EUPL",
-    "authors": [
-        {
-            "name": "",
-            "role": ""
-        }
-    ],
     "repositories": [
         {
             "type": "composer",
