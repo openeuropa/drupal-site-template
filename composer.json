@@ -23,7 +23,6 @@
         "drupal/core": "~8.5.3",
         "drush/drush": "^9.0.0",
         "openeuropa/oe_profile": "dev-master",
-        "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },
@@ -40,7 +39,6 @@
         "sort-packages": true
     },
     "autoload": {
-        "files": ["load.environment.php"]
     },
     "extra": {
         "installer-paths": {
