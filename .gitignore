@@ -20,5 +20,6 @@
 /.idea/
 
 # Ignore local configuration files.
+/behat.yml
 /grumphp.yml
 /runner.yml

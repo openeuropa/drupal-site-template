@@ -23,6 +23,7 @@
     },
     "require-dev": {
         "drupal/console": "^1.0.2",
+        "drupal/drupal-extension": "~4.0",
         "openeuropa/code-review": "^0.2",
         "openeuropa/task-runner": "^0.5",
         "webflo/drupal-core-require-dev": "~8.6"
@@ -36,6 +37,9 @@
         "sort-packages": true
     },
     "autoload": {
+        "psr-4": {
+            "OpenEuropa\\my_site\\": "./src/"
+        }
     },
     "scripts": {
         "post-install-cmd": [
