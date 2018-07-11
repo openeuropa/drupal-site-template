@@ -1,6 +1,6 @@
 drupal:
-  root: "build"
-  base_url: "http://web:8080/build"
+  root: "build/web"
+  base_url: "http://web:8080/build/web"
   database:
     host: "mysql"
     port: "3306"
