@@ -2,8 +2,9 @@ default:
   suites:
     default:
       contexts:
-        - Behat\MinkExtension\Context\MinkContext
         - Drupal\DrupalExtension\Context\MarkupContext
+        - Drupal\DrupalExtension\Context\MessageContext
+        - Drupal\DrupalExtension\Context\MinkContext
         - OpenEuropa\my_site\Context\DrupalContext
         - OpenEuropa\my_site\Context\FeatureContext
   extensions:
@@ -27,5 +28,14 @@ default:
         custom footer: ".ecl-footer__custom"
         corporate top footer: ".ecl-footer__corporate-top"
         corporate bottom footer: ".ecl-footer__corporate-bottom"
+      selectors:
+        message_selector: '.ecl-message'
+        error_message_selector: '.ecl-message--error'
+        success_message_selector: '.ecl-message--success'
+        warning_message_selector: '.ecl-message--warning'
+        login_form_selector: '#user-login-form'
+      text:
+        log_in: 'Log in'
+        log_out: 'Log out'
   formatters:
     progress: ~
