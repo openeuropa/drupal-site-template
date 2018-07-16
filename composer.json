@@ -16,8 +16,8 @@
         "drupal-composer/drupal-scaffold": "^2.5",
         "drupal/core": "~8.6",
         "drush/drush": "^9.0.0",
-        "openeuropa/oe_profile": "dev-master",
-        "openeuropa/oe_theme": "^0.4",
+        "openeuropa/oe_profile": "~0.1",
+        "openeuropa/oe_theme": "~0.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },
@@ -25,9 +25,9 @@
         "drupal/console": "^1.0.2",
         "drupal/drupal-extension": "~4.0",
         "nikic/php-parser": "~2.1|~3.0",
-        "openeuropa/code-review": "^0.2",
+        "openeuropa/code-review": "~0.2",
         "openeuropa/composer-artifacts": "~0.1",
-        "openeuropa/task-runner": "^0.5",
+        "openeuropa/task-runner": "~0.5",
         "webflo/drupal-core-require-dev": "~8.6"
     },
     "conflict": {
