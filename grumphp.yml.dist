@@ -27,8 +27,9 @@ parameters:
       ruleset: %tasks.phpmd.ruleset%
       triggered_by: %tasks.phpmd.triggered_by%
     git_commit_message:
-      matchers: %tasks.git_commit_message.matchers%
       case_insensitive: false
+      enforce_no_subject_trailing_period: false
+      matchers: %tasks.git_commit_message.matchers%
       multiline: false
     phpparser:
       ignore_patterns: %tasks.phpcs.ignore_patterns%
