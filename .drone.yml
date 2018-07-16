@@ -31,7 +31,7 @@ pipeline:
     commands:
       - ./vendor/bin/run drupal:site-install
       # Reset permission since installation runs as root. @todo Fix this.
-      - chown -R 1000:1000 build/sites/default
+      - chown -R 1000:1000 build/web/sites/default
       - chmod -R 777 /tmp
 
   grumphp:
