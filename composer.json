@@ -8,7 +8,7 @@
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.5",
-        "drupal/core": "~8.6",
+        "drupal/core": "~8.6@alpha",
         "drush/drush": "^9.0.0",
         "openeuropa/oe_profile": "~0.1",
         "openeuropa/oe_theme": "~0.4",
