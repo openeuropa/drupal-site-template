@@ -36,6 +36,10 @@ pipeline:
     image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/grumphp run
+    # PHP Mess Detector is throwing unreasonable errors. Remove this line once
+    # OPENEUROPA-792 is fixed.
+    # https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-792
+    err_ignore: true
 
   behat:
     group: test
