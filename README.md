@@ -88,6 +88,13 @@ $ docker-compose exec web ./vendor/bin/run drupal:site-install
 Once this completes your website will be available on 
 [http://localhost:8080/build/web/](http://localhost:8080/build/web/)
 
+To verify whether everything works as expected, you can run the example Behat
+test suite:
+
+```
+$ docker-compose exec web ./vendor/bin/behat
+```
+
 ### 3.2. Using a local LAMP stack
 
 Install the website using the task runner:
@@ -97,6 +104,13 @@ $ ./vendor/bin/run drupal:site-install
 ```
 
 The site will be available through your local web server.
+
+To verify whether everything works as expected, you can run the example Behat
+test suite:
+
+```
+$ ./vendor/bin/behat
+```
 
 ## 4. Commit and push
 
