@@ -4,7 +4,7 @@ workspace:
 
 services:
   web:
-    image: fpfis/php71-dev
+    image: fpfis/httpd-php-dev:7.1
     environment:
       - DOCUMENT_ROOT=/test/openeuropa-site
   mysql:
@@ -20,28 +20,25 @@ services:
 pipeline:
   composer-install:
     group: prepare
-    image: fpfis/php71-build
+    image: fpfis/httpd-php-dev:7.1
     volumes:
       - /cache:/cache
     commands:
       - composer install
 
   site-install:
-    image: fpfis/php71-build
+    image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/run drupal:site-install
-      # Reset permission since installation runs as root. @todo Fix this.
-      - chown -R 1000:1000 build/web/sites/default
-      - chmod -R 777 /tmp
 
   grumphp:
     group: test
-    image: fpfis/php71-build
+    image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/grumphp run
 
   behat:
     group: test
-    image: fpfis/php71-build
+    image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/behat
