@@ -6,7 +6,6 @@ namespace DrupalSiteTemplate\composer;
 
 use Composer\Json\JsonFile;
 use Composer\Script\Event;
-use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Setup wizard to handle user input during initial composer installation.
@@ -30,9 +29,6 @@ class SetupWizard {
     $composer_filename = $event->getComposer()->getConfig()->getConfigSource()->getName();
     $composer_json = new JsonFile($composer_filename);
     $config = $composer_json->read();
-
-    // Initialize the filesystem component so we can manipulate files.
-    $filesystem = new Filesystem();
 
     // Ask for the project name, and suggest the various machine names.
     $project_name = $event->getIO()->ask('<info>What is the (human readable) project name?</info> [<comment>My Europa Site</comment>]? ', 'My Europa Site');
