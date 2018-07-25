@@ -75,25 +75,31 @@ class Setup {
       file_put_contents($filename, $file);
     }
 
-    // Remove the setup wizard.
-    unlink('scripts/composer/Setup.php');
-
+    // Remove the configuration related to the setup wizard.
+    unset($config['scripts']['cleanup']);
     unset($config['scripts']['setup']);
     $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/Setup.php']);
     if (empty($config['autoload']['classmap'])) {
       unset($config['autoload']['classmap']);
+    }
+    $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['@cleanup']);
+    if (empty($config['scripts']['post-create-project-cmd'])) {
+      unset($config['scripts']['post-create-project-cmd']);
     }
     $config['scripts']['post-root-package-install'] = array_diff($config['scripts']['post-root-package-install'], ['@setup']);
     if (empty($config['scripts']['post-root-package-install'])) {
       unset($config['scripts']['post-root-package-install']);
     }
 
-    $composer_config = $event->getComposer()->getConfig();
-    $composer_config->merge(array('config' => $config));
-    $event->getComposer()->setConfig($composer_config);
-
     $composer_json->write($config);
 
     return TRUE;
+  }
+
+  /**
+   * Removes the setup wizard.
+   */
+  public static function cleanup(): void {
+    unlink('scripts/composer/Setup.php');
   }
 }
