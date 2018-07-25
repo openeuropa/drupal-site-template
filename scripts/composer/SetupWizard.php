@@ -71,6 +71,12 @@ class SetupWizard {
       file_put_contents($filename, $file);
     }
 
+    // Update the configuration file.
+    $file = file_get_contents('runner.yml.dist');
+    $file = preg_replace('/My OpenEuropa site/', trim($project_name), $file);
+    $file = preg_replace('/openeuropa_site/', $machine_name, $file);
+    file_put_contents('runner.yml.dist', $file);
+
     // Remove the configuration related to the setup wizard.
     unset($config['scripts']['cleanup']);
     unset($config['scripts']['setup']);
