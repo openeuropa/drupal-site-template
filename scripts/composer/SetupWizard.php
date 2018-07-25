@@ -11,7 +11,7 @@ use Symfony\Component\Filesystem\Filesystem;
 /**
  * Setup wizard to handle user input during initial composer installation.
  */
-class Setup {
+class SetupWizard {
 
   /**
    * The setup wizard.
@@ -78,7 +78,7 @@ class Setup {
     // Remove the configuration related to the setup wizard.
     unset($config['scripts']['cleanup']);
     unset($config['scripts']['setup']);
-    $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/Setup.php']);
+    $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php']);
     if (empty($config['autoload']['classmap'])) {
       unset($config['autoload']['classmap']);
     }
@@ -100,6 +100,7 @@ class Setup {
    * Removes the setup wizard.
    */
   public static function cleanup(): void {
-    unlink('scripts/composer/Setup.php');
+    unlink('scripts/composer/SetupWizard.php');
   }
+
 }
