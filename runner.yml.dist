@@ -19,6 +19,10 @@ drupal:
     config_directories:
       sync: '../config/sync'
 
+selenium:
+  host: "http://selenium"
+  port: "4444"
+
 commands:
   drupal:site-setup:
     - { task: "symlink", from: "../../modules", to: "${drupal.root}/modules/custom" }
