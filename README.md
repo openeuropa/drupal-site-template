@@ -9,12 +9,10 @@ OpenEuropa Drupal 8 platform. It will install the [OpenEuropa Profile](https://g
 which is a lightweight installation profile that includes the minimal number
 of modules that are required to enable the [OpenEuropa Theme](https://github.com/openeuropa/oe_theme).
 Using this theme will ensure that the project complies with the guidelines for
-European Commission websites.
+[European Component Library](https://github.com/ec-europa/europa-component-library).
 
-In order to build the functionality of the website you are free to use the
-[OpenEuropa components](https://github.com/openeuropa/openeuropa/blob/master/docs/openeuropa-components.md),
-community contributed [Drupal modules](https://www.drupal.org/project/project_module)
-and [PHP packages](https://packagist.org/explore/).
+In order to build the functionality of the website you are free to use any of the
+[OpenEuropa components](https://github.com/openeuropa/openeuropa/blob/master/docs/openeuropa-components.md).
 
 Starting a new project is a 4 step procedure:
 
