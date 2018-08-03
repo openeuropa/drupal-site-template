@@ -18,7 +18,6 @@
     "require-dev": {
         "drupal/console": "^1.0.2",
         "drupal/drupal-extension": "~4.0",
-        "nikic/php-parser": "~2.1|~3.0",
         "openeuropa/code-review": "~0.3",
         "openeuropa/composer-artifacts": "~0.1",
         "openeuropa/task-runner": "~0.5",
@@ -58,9 +57,6 @@
             "build/web/themes/contrib/{$name}": ["type:drupal-theme"]
         },
         "patches": {
-            "openeuropa/oe_theme": {
-                "OPENEUROPA-722: Make sure the default body classes are output - https://github.com/openeuropa/oe_theme/pull/108": "https://patch-diff.githubusercontent.com/raw/openeuropa/oe_theme/pull/108.patch"
-            },
             "phpro/grumphp": {
                 "Make detection of strict types compatible with PhpParser 4 - https://github.com/phpro/grumphp/pull/525": "https://patch-diff.githubusercontent.com/raw/phpro/grumphp/pull/525.patch"
             }
