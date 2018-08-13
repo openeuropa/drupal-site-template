@@ -26,6 +26,7 @@
     },
     "scripts": {
         "post-install-cmd": [
+            "@drupal-scaffold",
             "./vendor/bin/run drupal:site-setup"
         ],
         "post-root-package-install": [
@@ -35,10 +36,12 @@
             "@cleanup"
         ],
         "post-update-cmd": [
+            "@drupal-scaffold",
             "./vendor/bin/run drupal:site-setup"
         ],
         "cleanup": "DrupalSiteTemplate\\composer\\SetupWizard::cleanup",
-        "setup": "DrupalSiteTemplate\\composer\\SetupWizard::setup"
+        "setup": "DrupalSiteTemplate\\composer\\SetupWizard::setup",
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
     },
     "extra": {
         "artifacts": {
