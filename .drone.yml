@@ -31,14 +31,11 @@ pipeline:
     commands:
       - ./vendor/bin/run drupal:site-install
 
-  # PHP Mess Detector is throwing unreasonable errors. Uncomment this section
-  # once OPENEUROPA-792 is fixed.
-  # https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-792
-  # grumphp:
-  #   group: test
-  #   image: fpfis/httpd-php-dev:7.1
-  #   commands:
-  #     - ./vendor/bin/grumphp run
+  grumphp:
+    group: test
+    image: fpfis/httpd-php-dev:7.1
+    commands:
+      - ./vendor/bin/grumphp run
 
   behat:
     group: test

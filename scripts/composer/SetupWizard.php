@@ -15,6 +15,12 @@ class SetupWizard {
   /**
    * The setup wizard.
    *
+   * PHP Mess Detector is throwing unreasonable errors.
+   * Remove the following @SuppressWarnings once OPENEUROPA-792 is fixed.
+   * @link https://webgate.ec.europa.eu/CITnet/jira/browse/OPENEUROPA-792
+   *
+   * @SuppressWarnings(PHPMD.LongVariable)
+   *
    * @param \Composer\Script\Event $event
    *   The Composer event that triggered the wizard.
    *
