@@ -95,6 +95,9 @@ class SetupWizard {
 
     $composer_json->write($config);
 
+    // Dump autoload after updating composer.json "autoload" values.
+    exec('composer dump-autoload');
+
     return TRUE;
   }
 
