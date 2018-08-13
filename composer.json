@@ -25,8 +25,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "./vendor/bin/run drupal:site-setup",
-            "composer dump-autoload"
+            "./vendor/bin/run drupal:site-setup"
         ],
         "post-root-package-install": [
             "@setup"
@@ -35,8 +34,7 @@
             "@cleanup"
         ],
         "post-update-cmd": [
-            "./vendor/bin/run drupal:site-setup",
-            "composer dump-autoload"
+            "./vendor/bin/run drupal:site-setup"
         ],
         "cleanup": "DrupalSiteTemplate\\composer\\SetupWizard::cleanup",
         "setup": "DrupalSiteTemplate\\composer\\SetupWizard::setup"
@@ -52,11 +50,11 @@
         },
         "composer-exit-on-patch-failure": true,
         "installer-paths": {
-            "build/web/core": ["type:drupal-core"],
-            "build/web/libraries/{$name}": ["type:drupal-library"],
-            "build/web/modules/contrib/{$name}": ["type:drupal-module"],
-            "build/web/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "build/web/themes/contrib/{$name}": ["type:drupal-theme"]
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"]
         },
         "patches": {
             "phpro/grumphp": {

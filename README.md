@@ -84,7 +84,7 @@ $ docker-compose exec web ./vendor/bin/run drupal:site-install
 ```
 
 Once this completes your website will be available on 
-[http://localhost:8080/build/web/](http://localhost:8080/build/web/)
+[http://localhost:8080/web/](http://localhost:8080/web/)
 
 To verify whether everything works as expected, you can run the example Behat
 test suite:

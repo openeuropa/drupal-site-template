@@ -5,7 +5,7 @@
 /.idea/
 
 # Ignore the build.
-/build/
+/web/
 
 # Ignore local configuration files.
 /behat.yml
