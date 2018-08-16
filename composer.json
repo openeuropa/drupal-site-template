@@ -1,0 +1,91 @@
+{
+    "name": "openeuropa/drupal-site-template",
+    "description": "A template for setting up an OpenEuropa Drupal site.",
+    "type": "project",
+    "license": "EUPL",
+    "require": {
+        "php": "~7.1",
+        "composer/installers": "^1.2",
+        "cweagans/composer-patches": "^1.6",
+        "drupal-composer/drupal-scaffold": "^2.5",
+        "drupal/core": "~8.6@alpha",
+        "drush/drush": "^9.0.0",
+        "openeuropa/oe_profile": "~0.1",
+        "openeuropa/oe_theme": "~0.4",
+        "webflo/drupal-finder": "^1.0.0",
+        "webmozart/path-util": "^2.3"
+    },
+    "require-dev": {
+        "drupal/console": "^1.0.2",
+        "drupal/drupal-extension": "~4.0",
+        "nikic/php-parser": "~2.0|~3.0|~4.0",
+        "openeuropa/code-review": "~0.3",
+        "openeuropa/composer-artifacts": "~0.1",
+        "openeuropa/task-runner": "~0.5",
+        "webflo/drupal-core-require-dev": "~8.6"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "./vendor/bin/run drupal:site-setup"
+        ],
+        "post-root-package-install": [
+            "@setup"
+        ],
+        "post-create-project-cmd": [
+            "@cleanup"
+        ],
+        "post-update-cmd": [
+            "./vendor/bin/run drupal:site-setup"
+        ],
+        "cleanup": "DrupalSiteTemplate\\composer\\SetupWizard::cleanup",
+        "setup": "DrupalSiteTemplate\\composer\\SetupWizard::setup"
+    },
+    "extra": {
+        "artifacts": {
+            "openeuropa/oe_theme": {
+                "dist": {
+                    "url": "https://github.com/{name}/releases/download/{pretty-version}/{project-name}-{pretty-version}.tar.gz",
+                    "type": "tar"
+                }
+            }
+        },
+        "composer-exit-on-patch-failure": true,
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"]
+        },
+        "patches": {
+            "phpro/grumphp": {
+                "Make detection of strict types compatible with PhpParser 4 - https://github.com/phpro/grumphp/pull/525": "https://patch-diff.githubusercontent.com/raw/phpro/grumphp/pull/525.patch"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1.9"
+        }
+    },
+    "autoload": {
+        "classmap": [
+            "scripts/composer/SetupWizard.php"
+        ],
+        "psr-4": {
+            "OpenEuropa\\my_site\\": "./src/"
+        }
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ]
+}

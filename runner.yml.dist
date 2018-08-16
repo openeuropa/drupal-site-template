@@ -1,0 +1,32 @@
+drupal:
+  root: "web"
+  base_url: "http://web:8080/web"
+  database:
+    host: "mysql"
+    port: "3306"
+    name: "openeuropa_site"
+    user: "root"
+    password: ""
+  site:
+    profile: "oe_profile"
+    name: "My OpenEuropa site"
+  pre_install:
+    - { task: "chmod", permissions: 0775, file: "${drupal.root}/sites/default" }
+    - { task: "touch", file: "${drupal.root}/sites/default/settings.php" }
+    - { task: "chmod", permissions: 0664, file: "${drupal.root}/sites/default/settings.php" }
+    - { task: "remove", file: "${drupal.root}/sites/default/settings.php" }
+  settings:
+    config_directories:
+      sync: '../config/sync'
+
+selenium:
+  host: "http://selenium"
+  port: "4444"
+
+commands:
+  drupal:site-setup:
+    - { task: "run", command: "drupal:drush-setup" }
+    - { task: "run", command: "drupal:settings-setup" }
+    - { task: "run", command: "setup:behat" }
+  setup:behat:
+    - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
