@@ -71,6 +71,10 @@ environment.
 
 ### 3.1. Using Docker
 
+Copy docker-compose.yml.dist into docker-compose.yml.
+
+You can make any alterations you need for your local Docker setup. However, the defaults should be enough to set the project up.
+
 Download and start the supplied Docker images:
 
 ```
