@@ -10,11 +10,6 @@ drupal:
   site:
     profile: "oe_profile"
     name: "My OpenEuropa site"
-  pre_install:
-    - { task: "chmod", permissions: 0775, file: "${drupal.root}/sites/default" }
-    - { task: "touch", file: "${drupal.root}/sites/default/settings.php" }
-    - { task: "chmod", permissions: 0664, file: "${drupal.root}/sites/default/settings.php" }
-    - { task: "remove", file: "${drupal.root}/sites/default/settings.php" }
   settings:
     config_directories:
       sync: '../config/sync'
