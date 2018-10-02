@@ -56,11 +56,6 @@
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"]
-        },
-        "patches": {
-            "phpro/grumphp": {
-                "Make detection of strict types compatible with PhpParser 4 - https://github.com/phpro/grumphp/pull/525": "https://patch-diff.githubusercontent.com/raw/phpro/grumphp/pull/525.patch"
-            }
         }
     },
     "minimum-stability": "dev",

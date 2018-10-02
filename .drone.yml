@@ -6,39 +6,55 @@ services:
   web:
     image: fpfis/httpd-php-dev:7.1
     environment:
-      - DOCUMENT_ROOT=/test/openeuropa-site
+    - DOCUMENT_ROOT=/test/openeuropa-site
   mysql:
     image: percona/percona-server:5.6
     environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    - MYSQL_ALLOW_EMPTY_PASSWORD=yes
   selenium:
     image: selenium/standalone-chrome:3.11
     environment:
-      - DISPLAY=:99
-      - SE_OPTS=-debug
+    - DISPLAY=:99
+    - SE_OPTS=-debug
 
 pipeline:
   composer-install:
     group: prepare
     image: fpfis/httpd-php-dev:7.1
     volumes:
-      - /cache:/cache
+    - /cache:/cache
     commands:
-      - composer install
+    - composer install --ansi --no-suggest --no-progress
+
+  composer-update-lowest:
+    group: prepare-update
+    image: fpfis/httpd-php-dev:7.1
+    volumes:
+    - /cache:/cache
+    commands:
+    - composer update --prefer-lowest --ansi --no-suggest --no-progress
+    when:
+      matrix:
+        COMPOSER_BOUNDARY: lowest
 
   site-install:
     image: fpfis/httpd-php-dev:7.1
     commands:
-      - ./vendor/bin/run drupal:site-install
+    - ./vendor/bin/run drupal:site-install
 
   grumphp:
     group: test
     image: fpfis/httpd-php-dev:7.1
     commands:
-      - ./vendor/bin/grumphp run
+    - ./vendor/bin/grumphp run
 
   behat:
     group: test
     image: fpfis/httpd-php-dev:7.1
     commands:
-      - ./vendor/bin/behat
+    - ./vendor/bin/behat
+
+matrix:
+  COMPOSER_BOUNDARY:
+  - lowest
+  - highest
