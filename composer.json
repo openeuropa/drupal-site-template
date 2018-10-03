@@ -8,20 +8,21 @@
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.5",
-        "drupal/core": "~8.6@alpha",
-        "drush/drush": "^9.0.0",
-        "openeuropa/oe_profile": "~0.1",
-        "openeuropa/oe_theme": "~0.4",
+        "drupal/core": "^8.6",
+        "drush/drush": "^9.0",
+        "openeuropa/oe_profile": "^0.2",
+        "openeuropa/oe_theme": "^0.6",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
-        "drupal/drupal-extension": "~4.0",
-        "nikic/php-parser": "~2.0|~3.0|~4.0",
+        "drupal/console": "~1.6",
+        "drupal/drupal-extension": "~4.0.0@alpha",
+        "nikic/php-parser": "~2.0||~3.0||~4.0",
         "openeuropa/code-review": "~1.0.0-alpha3",
         "openeuropa/composer-artifacts": "~0.1",
-        "openeuropa/task-runner": "dev-OPENEUROPA-1140-2#9d316149b6",
-        "webflo/drupal-core-require-dev": "~8.6"
+        "openeuropa/drupal-core-require-dev": "^8.6",
+        "openeuropa/task-runner": "~1.0@alpha"
     },
     "scripts": {
         "post-install-cmd": [
