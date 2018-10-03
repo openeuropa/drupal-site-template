@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "drupal/console": "~1.6",
-        "drupal/drupal-extension": "~4.0.0@alpha",
+        "drupal/drupal-extension": "~4.0",
         "nikic/php-parser": "~2.0||~3.0||~4.0",
         "openeuropa/code-review": "~1.0.0-alpha3",
         "openeuropa/composer-artifacts": "~0.1",
