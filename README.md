@@ -71,30 +71,70 @@ environment.
 
 ### 3.1. Using Docker
 
-Copy docker-compose.yml.dist into docker-compose.yml.
+You can build a development site using [Docker](https://www.docker.com/get-docker) and
+[Docker Compose](https://docs.docker.com/compose/) with the provided configuration.
 
-You can make any alterations you need for your local Docker setup. However, the defaults should be enough to set the project up.
+Docker provides the necessary services and tools such as a web server and a database server to get the site running,
+regardless of your local host configuration.
 
-Download and start the supplied Docker images:
+#### Requirements:
 
+- [Docker](https://www.docker.com/get-docker)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+#### Configuration
+
+By default, Docker Compose reads two files, a `docker-compose.yml` and an optional `docker-compose.override.yml` file.
+By convention, the `docker-compose.yml` contains your base configuration and it's provided by default.
+The override file, as its name implies, can contain configuration overrides for existing services or entirely new
+services.
+If a service is defined in both files, Docker Compose merges the configurations.
+
+Find more information on Docker Compose extension mechanism on [the official Docker Compose documentation](https://docs.docker.com/compose/extends/).
+
+#### Usage
+
+To start, run:
+
+```bash
+docker-compose up
 ```
-$ docker-compose up -d
+
+It's advised to not daemonize `docker-compose` so you can turn it off (`CTRL+C`) quickly when you're done working.
+However, if you'd like to daemonize it, you have to add the flag `-d`:
+
+```bash
+docker-compose up -d
 ```
 
-Next, install the website:
+Then:
 
+```bash
+docker-compose exec web composer install
+docker-compose exec web ./vendor/bin/run drupal:site-install
 ```
-$ docker-compose exec web ./vendor/bin/run drupal:site-install
+
+Using default configuration, the development site files should be available in the `build` directory and the development site
+should be available at: [http://127.0.0.1:8080/build](http://127.0.0.1:8080/build).
+
+#### Running the tests
+
+To run the grumphp checks:
+
+```bash
+docker-compose exec web ./vendor/bin/grumphp run
 ```
 
-Once this completes your website will be available on 
-[http://localhost:8080/web/](http://localhost:8080/web/)
+To run the phpunit tests:
 
-To verify whether everything works as expected, you can run the example Behat
-test suite:
-
+```bash
+docker-compose exec web ./vendor/bin/phpunit
 ```
-$ docker-compose exec web ./vendor/bin/behat
+
+To run the behat tests:
+
+```bash
+docker-compose exec web ./vendor/bin/behat
 ```
 
 ### 3.2. Using a local LAMP stack

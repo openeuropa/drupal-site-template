@@ -30,4 +30,4 @@
 /behat.yml
 /grumphp.yml
 /runner.yml
-/docker-compose.yml
+/docker-compose.*.yml
