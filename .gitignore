@@ -25,5 +25,3 @@ composer.lock
 /grumphp.yml
 /runner.yml
 /docker-compose.*.yml
-
-

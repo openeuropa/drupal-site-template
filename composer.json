@@ -10,7 +10,7 @@
         "drupal/core": "^8.6",
         "drush/drush": "^9.0",
         "openeuropa/oe_profile": "^0.2",
-        "openeuropa/oe_theme": "0.6.2",
+        "openeuropa/oe_theme": "^0.6",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },
@@ -48,7 +48,6 @@
                 }
             }
         },
-        "composer-exit-on-patch-failure": true,
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
