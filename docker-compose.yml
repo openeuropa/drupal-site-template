@@ -27,9 +27,9 @@ services:
       - DISPLAY=:99
       - SE_OPTS=-debug
     ports:
-      - "5900:5900"
+      - 5900:5900
     expose:
-      - '4444'
+      - 4444
 
 #### Mac users: uncomment the "volumes" key to enable the NFS file sharing. You can find more information about Docker for Mac here: https://github.com/openeuropa/openeuropa/blob/master/docs/starting/tooling.md#using-docker-on-macos
 
