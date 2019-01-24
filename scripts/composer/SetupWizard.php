@@ -83,6 +83,10 @@ class SetupWizard {
     $file = preg_replace('/openeuropa_site/', $machine_name, $file);
     file_put_contents('runner.yml.dist', $file);
 
+    // Setup the site README.
+    unlink('README.md');
+    rename('README.site.md', 'README.md');
+
     // Remove the configuration related to the setup wizard.
     unset($config['scripts']['cleanup']);
     unset($config['scripts']['setup']);
