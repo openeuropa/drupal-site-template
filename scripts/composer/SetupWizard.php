@@ -85,7 +85,10 @@ class SetupWizard {
 
     // Setup the site README.
     unlink('README.md');
-    rename('README.site.md', 'README.md');
+    rename('README.md.dist', 'README.md');
+    // Setup the site gitignore.
+    unlink('.gitignore');
+    rename('gitignore.dist', '.gitignore');
 
     // Remove the configuration related to the setup wizard.
     unset($config['scripts']['cleanup']);

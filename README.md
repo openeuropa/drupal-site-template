@@ -14,16 +14,19 @@ Using this theme will ensure that the project complies with the guidelines for
 In order to build the functionality of the website you are free to use any of the
 [OpenEuropa components](https://github.com/openeuropa/openeuropa/blob/master/docs/openeuropa-components.md).
 
-Starting a new project is a 4 step procedure:
-
-## 0. Prerequisites
+## Prerequisites
 
 You need to have the following software installed on your local development environment:
 
 * [Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
+* [Docker Compose](https://docs.docker.com/compose/install/)
 
-## 1. Create the project
+## Create the project
 
+The project is built using [Composer create-project](https://getcomposer.org/doc/03-cli.md#create-project)
+This is the equivalent of doing a git clone/svn checkout followed by a composer install of the vendors.
+
+One does not need to be in this repository in order to use the `composer create-project` command. 
 The project can be created using the following command:
 
 ```
@@ -38,3 +41,25 @@ The installer will then download all dependencies for the project. This process
 takes several minutes. At the end you will be asked whether to remove the
 existing version history. It is recommended to confirm this question so that you
 can start your project with a clean slate.
+
+## Drone
+
+A drone.yml file is provided for running CI tests on drone. Further details of how to set this up can be found in the
+ [drone documentation](https://docs.drone.io/).
+ 
+ ## Project management
+ 
+It is recommended that the version of oe_theme is locked to the current minor version before going live with the 
+project, so that updates to the theme do not cause problems to a running site. We recommend that this is periodically 
+updated to the latest version, after doing manual testing.
+
+A separate .gitignore file is provided which is used for the project. Drupal scaffold files should be committed after 
+running composer install or update. See the 
+[drupal scaffold documentation](https://github.com/drupal-composer/drupal-scaffold/blob/master/README.md#limitation)
+for further details.
+
+Further details of how to build sites, install drupal and run tests can be found in the README.md found within your site
+ folder. 
+
+
+

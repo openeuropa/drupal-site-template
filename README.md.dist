@@ -1,10 +1,6 @@
-# OpenEuropa template for Drupal projects
+# OpenEuropa Drupal project.
 
-This is based on [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project).
-
-[![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/drupal-site-template/status.svg?branch=master)](https://drone.fpfis.eu/openeuropa/drupal-site-template)
-
-This project template provides a starter kit for creating a website using the
+This project starter kit will create a website using the
 OpenEuropa Drupal 8 platform. It will install the [OpenEuropa Profile](https://github.com/openeuropa/oe_profile)
 which is a lightweight installation profile that includes the minimal number
 of modules that are required to enable the [OpenEuropa Theme](https://github.com/openeuropa/oe_theme).
@@ -24,12 +20,6 @@ You need to have the following software installed on your local development envi
 * [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## 2. Configuration
-
-First let's move into the project's folder:
-
-```
-$ cd my-openeuropa-site
-```
 
 The project ships with default configuration that is intended to run the
 website on the Docker containers we provide. If you are content with using
