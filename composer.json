@@ -8,12 +8,13 @@
     "require": {
         "php": "^7.1",
         "composer/installers": "^1.5",
+        "cweagans/composer-patches": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.5",
         "drupal/core": "^8.6",
         "drush/drush": "^9.0",
         "openeuropa/oe_profile": "^0.2",
         "openeuropa/oe_theme": "^0.9",
-        "webflo/drupal-finder": "^1.0.0",
+        "webflo/drupal-finder": "^1.0",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
