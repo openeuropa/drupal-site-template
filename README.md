@@ -166,3 +166,8 @@ $ git commit -m "Initial commit."
 ```
 
 Now you are ready to push your project to your chosen code hosting service.
+
+## 5. Patches list
+
+- [Patch](https://www.drupal.org/files/issues/2018-10-01/2599228-SQL_error_on_content_creation-78_0.patch) for issue [#2599228](https://www.drupal.org/project/drupal/issues/2599228) -
+Programmatically created translatable content type returns SQL error on content creation.

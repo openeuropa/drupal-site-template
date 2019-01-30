@@ -32,13 +32,13 @@ pipeline:
     commands:
       - ./vendor/bin/run drupal:site-install
 
-  grumphp:
+  test-grumphp:
     group: test
     image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/grumphp run
 
-  behat:
+  test-behat:
     group: test
     image: fpfis/httpd-php-dev:7.1
     commands:
