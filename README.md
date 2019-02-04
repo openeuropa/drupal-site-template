@@ -29,8 +29,8 @@ This is the equivalent of doing a `git clone` followed by a `composer install`.
 One does not need to be in this repository in order to use the `composer create-project` command. 
 The project can be created using the following command:
 
-```
-$ composer create-project openeuropa/drupal-site-template --stability=dev my-openeuropa-site
+```bash
+composer create-project openeuropa/drupal-site-template --stability=dev my-openeuropa-site
 ```
 
 For local development, to test the Setup Wizard, run `composer setup` from the root of this project.

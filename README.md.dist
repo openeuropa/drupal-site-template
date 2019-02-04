@@ -29,7 +29,7 @@ If you want to run the website using your locally installed LAMP stack, you
 will want to change the configuration to match your local system.
 
 Customize the default configuration values by copying `runner.yml.dist` to
-'runner.yml`:
+`runner.yml`:
 
 ```bash
 cp runner.yml.dist runner.yml
@@ -114,8 +114,8 @@ docker-compose exec web ./vendor/bin/behat
 
 Install the website using the task runner:
 
-```
-$ ./vendor/bin/run drupal:site-install
+```bash
+./vendor/bin/run drupal:site-install
 ```
 
 The site will be available through your local web server.
@@ -123,8 +123,8 @@ The site will be available through your local web server.
 To verify whether everything works as expected, you can run the example Behat
 test suite:
 
-```
-$ ./vendor/bin/behat
+```bash
+./vendor/bin/behat
 ```
 
 ## 4. Commit and push
@@ -132,10 +132,10 @@ $ ./vendor/bin/behat
 The final step is to create a new git repository and commit all the files. A
 `.gitignore` file is provided to ensure you only commit your own project files.
 
-```
-$ git init
-$ git add .
-$ git commit -m "Initial commit."
+```bash
+git init
+git add .
+git commit -m "Initial commit."
 ```
 
 Now you are ready to push your project to your chosen code hosting service.
