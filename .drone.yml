@@ -7,6 +7,7 @@ services:
     image: fpfis/httpd-php-dev:7.1
     environment:
       - DOCUMENT_ROOT=/test/openeuropa-site
+      - COMPOSER_CACHE_DIR=/cache/composer
   mysql:
     image: percona/percona-server:5.6
     environment:
@@ -18,26 +19,36 @@ services:
       - SE_OPTS=-debug
 
 pipeline:
+  # Download all dependencies.
   composer-install:
     group: prepare
     image: fpfis/httpd-php-dev:7.1
     volumes:
       - /cache:/cache
     commands:
-      - composer install
+      - composer install --ansi --no-suggest --no-progress
 
+  # Check vulnerable packages @Sensiolabs.
+  test-composer-deps:
+    group: check-prepare
+    image: phpdrone/composer-sa-checker
+    lock_file: composer.lock
+
+  # Install the drupal site.
   site-install:
     image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/run drupal:site-install
 
-  grumphp:
+  # Run grumphp tests.
+  test-grumphp:
     group: test
     image: fpfis/httpd-php-dev:7.1
     commands:
       - ./vendor/bin/grumphp run
 
-  behat:
+  # Run behat tests.
+  test-behat:
     group: test
     image: fpfis/httpd-php-dev:7.1
     commands:

@@ -10,11 +10,11 @@ default:
   extensions:
     Behat\MinkExtension:
       goutte: ~
-      browser_name: 'chrome'
+      browser_name: '${selenium.browser}'
       javascript_session: 'selenium2'
       selenium2:
         wd_host: '${selenium.host}:${selenium.port}/wd/hub'
-        capabilities: { "browser": "chrome", "version": "*" }
+        capabilities: { "browser": '${selenium.browser}', "version": "*" }
       base_url: "${drupal.base_url}"
     Drupal\DrupalExtension:
       api_driver: "drupal"
