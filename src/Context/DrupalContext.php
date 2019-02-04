@@ -20,6 +20,7 @@ class DrupalContext extends DrupalExtensionDrupalContext {
 
     // Check if the 'logged-in' class is present on the page.
     $element = $session->getPage();
+
     return $element->find('css', 'body.user-logged-in');
   }
 

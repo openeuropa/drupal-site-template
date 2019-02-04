@@ -3,26 +3,27 @@
     "description": "A template for setting up an OpenEuropa Drupal site.",
     "type": "project",
     "license": "EUPL-1.2",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "php": "~7.1",
-        "composer/installers": "^1.2",
-        "cweagans/composer-patches": "^1.6",
+        "php": "^7.1",
+        "composer/installers": "^1.5",
+        "cweagans/composer-patches": "^1.0",
         "drupal-composer/drupal-scaffold": "^2.5",
         "drupal/core": "^8.6",
         "drush/drush": "^9.0",
         "openeuropa/oe_profile": "^0.2",
-        "openeuropa/oe_theme": "^0.6",
-        "webflo/drupal-finder": "^1.0.0",
+        "openeuropa/oe_theme": "^0.9",
+        "webflo/drupal-finder": "^1.0",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
         "drupal/console": "~1.6",
         "drupal/drupal-extension": "~4.0",
-        "nikic/php-parser": "~2.0||~3.0||~4.0",
-        "openeuropa/code-review": "~1.0@alpha",
+        "openeuropa/code-review": "dev-master",
         "openeuropa/composer-artifacts": "~0.1",
-        "openeuropa/drupal-core-require-dev": "^8.6",
-        "openeuropa/task-runner": "~1.0@beta"
+        "openeuropa/task-runner": "~1.0",
+        "webflo/drupal-core-require-dev": "~8.6"
     },
     "scripts": {
         "post-install-cmd": [
@@ -40,6 +41,12 @@
         "cleanup": "DrupalSiteTemplate\\composer\\SetupWizard::cleanup",
         "setup": "DrupalSiteTemplate\\composer\\SetupWizard::setup"
     },
+    "repositories": {
+        "drupal": {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    },
     "extra": {
         "artifacts": {
             "openeuropa/oe_theme": {
@@ -50,20 +57,13 @@
             }
         },
         "composer-exit-on-patch-failure": true,
+        "enable-patching": true,
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"]
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "config": {
-        "sort-packages": true,
-        "platform": {
-            "php": "7.1.9"
         }
     },
     "autoload": {
@@ -77,10 +77,10 @@
     "conflict": {
         "drupal/drupal": "*"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://packages.drupal.org/8"
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.1.9"
         }
-    ]
+    }
 }
