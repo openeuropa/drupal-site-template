@@ -86,6 +86,7 @@ class SetupWizard {
     // Setup the site README.md.
     unlink('README.md');
     rename('README.md.dist', 'README.md');
+
     // Setup the site .gitignore.
     unlink('.gitignore');
     rename('.gitignore.dist', '.gitignore');

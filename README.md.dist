@@ -31,8 +31,8 @@ will want to change the configuration to match your local system.
 Customize the default configuration values by copying `runner.yml.dist` to
 'runner.yml`:
 
-```
-$ cp runner.yml.dist runner.yml
+```bash
+cp runner.yml.dist runner.yml
 ```
 
 Now edit `runner.yml` with your most beloved text editor. You will want to set

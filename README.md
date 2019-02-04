@@ -23,8 +23,8 @@ You need to have the following software installed on your local development envi
 
 ## Create the project
 
-The project is built using [Composer create-project](https://getcomposer.org/doc/03-cli.md#create-project)
-This is the equivalent of doing a git clone followed by a composer install.
+The project is built using [Composer create-project](https://getcomposer.org/doc/03-cli.md#create-project).
+This is the equivalent of doing a `git clone` followed by a `composer install`.
 
 One does not need to be in this repository in order to use the `composer create-project` command. 
 The project can be created using the following command:
@@ -46,21 +46,21 @@ can start your project with a clean slate.
 
 ## Drone
 
-A .drone.yml file is provided for running CI tests on Drone. Further details of how to set this up can be found in the
+A `.drone.yml` file is provided for running CI tests on Drone. Further details of how to set this up can be found in the
  [drone documentation](https://docs.drone.io/).
  
 ## Project management
  
-It is recommended that the version of oe_theme is locked to the current minor version before going live with the 
+It is recommended that the version of `oe_theme` is locked to the current minor version before going live with the 
 project, so that updates to the theme do not cause problems to a running site. We recommend that this is periodically 
 updated to the latest version, after doing manual testing.
 
-A separate .gitignore file is provided which is used for the project. Drupal scaffold files should be committed after 
+A separate `.gitignore` file is provided which is used for the project. Drupal scaffold files should be committed after 
 running composer install or update. See the 
 [Drupal scaffold documentation](https://github.com/drupal-composer/drupal-scaffold/blob/master/README.md#limitation)
 for further details.
 
-Further details of how to build sites, install Drupal and run tests can be found in the README.md found within your site
+Further details of how to build sites, install Drupal and run tests can be found in the `README.md` found within your site
  folder. 
 
 Now you are ready to push your project to your chosen code hosting service.
