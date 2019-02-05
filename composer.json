@@ -20,7 +20,7 @@
     "require-dev": {
         "drupal/console": "~1.6",
         "drupal/drupal-extension": "~4.0",
-        "openeuropa/code-review": "dev-master",
+        "openeuropa/code-review": "^1.0.0-beta1",
         "openeuropa/composer-artifacts": "~0.1",
         "openeuropa/task-runner": "~1.0",
         "webflo/drupal-core-require-dev": "~8.6"
