@@ -91,6 +91,11 @@ class SetupWizard {
     unlink('.gitignore');
     rename('.gitignore.dist', '.gitignore');
 
+    // Remove the CHANGELOG.md.
+    if (file_exists('CHANGELOG.md')) {
+      unlink('CHANGELOG.md');
+    }
+
     // Remove the configuration related to the setup wizard.
     unset($config['scripts']['cleanup']);
     unset($config['scripts']['setup']);
