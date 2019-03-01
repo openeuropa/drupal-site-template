@@ -1,13 +1,12 @@
 workspace:
   base: /test
-  path: openeuropa-site
+  path: drupal-site-template
 
 services:
   web:
     image: fpfis/httpd-php-dev:7.1
     environment:
-      - DOCUMENT_ROOT=/test/openeuropa-site
-      - COMPOSER_CACHE_DIR=/cache/composer
+      - DOCUMENT_ROOT=/test/drupal-site-template
   mysql:
     image: percona/percona-server:5.6
     environment:
