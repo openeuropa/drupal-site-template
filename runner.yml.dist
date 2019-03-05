@@ -1,3 +1,8 @@
+project:
+  id: myproject
+  name: myname
+  mail:myemail
+  url: production_url
 drupal:
   root: "web"
   base_url: "http://web:8080/web"
