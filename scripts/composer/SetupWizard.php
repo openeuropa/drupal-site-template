@@ -96,6 +96,9 @@ class SetupWizard {
       unlink('CHANGELOG.md');
     }
 
+    // Remove the .drone.yml.
+    unlink('.drone.yml');
+
     // Remove the configuration related to the setup wizard.
     unset($config['scripts']['cleanup']);
     unset($config['scripts']['setup']);
