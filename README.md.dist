@@ -139,3 +139,10 @@ git commit -m "Initial commit."
 ```
 
 Now you are ready to push your project to your chosen code hosting service.
+
+## 4. CI on Drone
+
+To follow the continuous integration of your project, you can check it on [Drone](https://drone.fpfis.eu/).
+
+A default pipeline is created by devops (handling QA of the code, test scenarios with behat and creation ).
+But the customization of this pipeline is possible, adding your `.drone.yml` on the root folder of the project.
