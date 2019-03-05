@@ -1,7 +1,7 @@
 project:
   id: myproject
   name: myname
-  mail:myemail
+  mail: myemail
   url: production_url
 drupal:
   root: "web"
