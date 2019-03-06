@@ -49,9 +49,6 @@ commands:
       file: "${drupal.root}/sites/default/settings.php"
       text: *settings
 
-  setup:behat:
-     - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
-
   drupal:build-dist:
     - { task: "remove", file: "dist" }
     - { task: "mkdir", dir: "dist" }
@@ -74,3 +71,6 @@ commands:
     - { task: "symlink", from: "lib/themes", to: "${drupal.root}/themes/custom" }
     - { task: "symlink", from: "lib/profiles", to: "${drupal.root}/profiles/custom" }
     - { task: "run", command: "drupal-dev:test-setup" }
+
+  drupal-dev:test-setup:
+    - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
