@@ -1,12 +1,14 @@
 default:
   suites:
     default:
+      paths:
+        - %paths.base%/tests/features
       contexts:
         - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\MinkContext
-        - OpenEuropa\my_site\Context\DrupalContext
-        - OpenEuropa\my_site\Context\FeatureContext
+        - OpenEuropa\my_site\Tests\Behat\DrupalContext
+        - OpenEuropa\my_site\Tests\Behat\FeatureContext
   extensions:
     Drupal\MinkExtension:
       goutte: ~

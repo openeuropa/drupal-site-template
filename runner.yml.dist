@@ -4,8 +4,8 @@ project:
   mail: myemail
   url: production_url
 drupal:
-  root: "web"
-  base_url: "http://web:8080/web"
+  root: "build"
+  base_url: "http://web:8080/build"
   database:
     host: "mysql"
     port: "3306"
@@ -28,6 +28,11 @@ commands:
   drupal:site-setup:
     - { task: "run", command: "drupal:drush-setup" }
     - { task: "run", command: "drupal:settings-setup" }
-    - { task: "run", command: "setup:behat" }
-  setup:behat:
+  drupal-dev:site-setup:
+    - { task: "run", command: "drupal:site-setup" }
+    - { task: "symlink", from: "lib/modules", to: "${drupal.root}/modules/custom" }
+    - { task: "symlink", from: "lib/themes", to: "${drupal.root}/themes/custom" }
+    - { task: "symlink", from: "lib/profiles", to: "${drupal.root}/profiles/custom" }
+    - { task: "run", command: "drupal:test-setup" }
+  drupal-dev:test-setup:
     - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
