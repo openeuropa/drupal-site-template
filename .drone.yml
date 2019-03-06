@@ -37,7 +37,7 @@ pipeline:
   # Run grumphp tests.
   test-grumphp:
     group: test
-    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     commands:
       - ./vendor/bin/grumphp run
 
