@@ -33,6 +33,6 @@ commands:
     - { task: "symlink", from: "lib/modules", to: "${drupal.root}/modules/custom" }
     - { task: "symlink", from: "lib/themes", to: "${drupal.root}/themes/custom" }
     - { task: "symlink", from: "lib/profiles", to: "${drupal.root}/profiles/custom" }
-    - { task: "run", command: "drupal:test-setup" }
+    - { task: "run", command: "drupal-dev:test-setup" }
   drupal-dev:test-setup:
     - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
