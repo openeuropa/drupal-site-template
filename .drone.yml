@@ -44,6 +44,7 @@ pipeline:
       - DRUPAL_ACCOUNT_PASSWORD=admin
       - DRUPAL_BASE_URL=http://web:8080/web
     commands:
+      - ./vendor/bin/run drupal-dev:site-setup
       - ./vendor/bin/run drupal:site-install
 
   # Run grumphp tests.
