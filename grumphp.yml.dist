@@ -3,13 +3,14 @@ imports:
 parameters:
   tasks.phpcs.ignore_patterns:
     - vendor/
-    - web/
+    - build/
   tasks.phpcs.triggered_by:
     - php
     - module
     - inc
     - theme
     - install
+    - yml
 
   extensions:
     - OpenEuropa\CodeReview\ExtraTasksExtension
