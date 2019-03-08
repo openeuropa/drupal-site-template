@@ -142,7 +142,8 @@ Now you are ready to push your project to your chosen code hosting service.
 
 ## 4. CI on Drone
 
-To follow the continuous integration of your project, you can check it on [Drone](https://drone.fpfis.eu/).
+To check the status of the continuous integration of your project, go to [Drone] (https://drone.fpfis.eu/).
 
-A default pipeline is created by devops (handling QA of the code, test scenarios with behat and creation ).
-But the customization of this pipeline is possible, adding your `.drone.yml` on the root folder of the project.
+A pipeline - created and maintained by devops - is applied by default. It manages the code review of the code,
+runs all the business tests on the repository and builds the site artifact for the deployment.
+Customizing this pipeline is possible by adding a custom ".drone.yml" file to the project's root folder.
