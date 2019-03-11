@@ -4,8 +4,8 @@ project:
   mail: myemail
   url: production_url
 drupal:
-  root: "build"
-  base_url: "http://web:8080/build"
+  root: "web"
+  base_url: "http://web:8080/web"
   database:
     host: "mysql"
     port: "3306"
