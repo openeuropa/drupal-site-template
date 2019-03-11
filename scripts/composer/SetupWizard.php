@@ -32,61 +32,128 @@ class SetupWizard {
    *   Thrown when an error occurs during the setup.
    */
   public static function setup(Event $event): bool {
-    // Load the Composer manifest so we can manipulate it.
     $composer_filename = $event->getComposer()->getConfig()->getConfigSource()->getName();
+    $params = [];
+
+    // Ask for the project name, and suggest the various machine names.
+    $params['project_name'] = 'My Europa Site';
+    $params['organization_name'] = 'OpenEuropa';
+    $params['description'] = 'A website built on the OpenEuropa platform.';
+
+    $params['project_name'] = $event->getIO()->ask('<info>What is the (human readable) project name?</info> [<comment>' . $params['organization_name'] . '</comment>]? ', $params['organization_name']);
+    $params['organization_name'] = $event->getIO()->ask('<info>What is the (human readable) name of the organization?</info> [<comment>' . $params['organization_name'] . '</comment>]? ', $params['organization_name']);
+
+    $params['sanitized_project_name'] = strtolower(preg_replace('/[^a-zA-Z ]/', '', trim($params['project_name'])));
+    $params['sanitized_organization_name'] = preg_replace('/[^a-zA-Z ]/', '', trim($params['organization_name']));
+    $params['camelcased_organization_name'] = preg_replace('/ /', '', ucwords($params['sanitized_organization_name']));
+
+    $params['machine_name'] = preg_replace('/\s+/', '_', $params['sanitized_project_name']);
+    $params['package_name'] = preg_replace('/\s+/', '-', strtolower($params['sanitized_organization_name'])) . '/' . preg_replace('/\s+/', '-', $params['sanitized_project_name']);
+
+    $params['machine_name'] = $event->getIO()->ask('<info>What is the (machine readable) project name?</info> [<comment>' . $params['machine_name'] . '</comment>]? ', $params['machine_name']);
+    $params['package_name'] = $event->getIO()->ask('<info>What is the package name?</info> [<comment>' . $params['package_name'] . '</comment>]? ', $params['package_name']);
+
+    $params['description'] = $event->getIO()->ask('<info>Provide a description</info> [<comment>' . $params['description'] . '</comment>]? ', $params['description']);
+
+    // Define the namespace for the project.
+    $params['namespace'] = $params['camelcased_organization_name'] . '\\' . $params['machine_name'] . '\\';
+
+    self::updateConfig($composer_filename, $params);
+    self::updateNamespacesOnFiles($params);
+    self::updateRunnerFile($params);
+    self::cleanFile();
+    self::createLibDir();
+    self::composerDumpAutoload();
+
+    return TRUE;
+  }
+
+  /**
+   * Update PHP namespaces.
+   *
+   * @param string $composer_filename
+   *   The filename of composer.
+   * @param array $params
+   *   The array of parameters.
+   *
+   * @throws \Exception
+   */
+  private static function updateConfig(string $composer_filename, array $params): void {
+    // Load the Composer manifest so we can manipulate it.
     $composer_json = new JsonFile($composer_filename);
     $config = $composer_json->read();
 
-    // Ask for the project name, and suggest the various machine names.
-    $project_name = $event->getIO()->ask('<info>What is the (human readable) project name?</info> [<comment>My Europa Site</comment>]? ', 'My Europa Site');
-    $organization_name = $event->getIO()->ask('<info>What is the (human readable) name of the organization?</info> [<comment>OpenEuropa</comment>]? ', 'OpenEuropa');
-
-    $sanitized_project_name = strtolower(preg_replace('/[^a-zA-Z ]/', '', trim($project_name)));
-    $sanitized_organization_name = preg_replace('/[^a-zA-Z ]/', '', trim($organization_name));
-    $camelcased_organization_name = preg_replace('/ /', '', ucwords($sanitized_organization_name));
-
-    $machine_name = preg_replace('/\s+/', '_', $sanitized_project_name);
-    $machine_name = $event->getIO()->ask('<info>What is the (machine readable) project name?</info> [<comment>' . $machine_name . '</comment>]? ', $machine_name);
-
-    $package_name = preg_replace('/\s+/', '-', strtolower($sanitized_organization_name)) . '/' . preg_replace('/\s+/', '-', $sanitized_project_name);
-    $package_name = $event->getIO()->ask('<info>What is the package name?</info> [<comment>' . $package_name . '</comment>]? ', $package_name);
-
-    $description = 'A website built on the OpenEuropa platform.';
-    $description = $event->getIO()->ask('<info>Provide a description</info> [<comment>' . $description . '</comment>]? ', $description);
-
-    // Define the namespace for the project.
-    $namespace = $camelcased_organization_name . '\\' . $machine_name . '\\';
-
     // Update values in the Composer manifest.
-    $config['name'] = $package_name;
-    $config['description'] = $description;
+    $config['name'] = $params['package_name'];
+    $config['description'] = $params['description'];
 
     if (!empty($config['autoload']['psr-4'])) {
       unset($config['autoload']['psr-4']);
     }
-    $config['autoload']['psr-4'][$namespace] = './src/';
+    $config['autoload']['psr-4'][$params['namespace']] = './src/';
 
-    // Update PHP namespaces.
+    // Remove the configuration related to the setup wizard.
+    unset($config['scripts']['cleanup']);
+    unset($config['scripts']['setup']);
+
+    $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php']);
+    if (empty($config['autoload']['classmap'])) {
+      unset($config['autoload']['classmap']);
+    }
+
+    $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['@cleanup']);
+    if (empty($config['scripts']['post-create-project-cmd'])) {
+      unset($config['scripts']['post-create-project-cmd']);
+    }
+
+    $config['scripts']['post-root-package-install'] = array_diff($config['scripts']['post-root-package-install'], ['@setup']);
+    if (empty($config['scripts']['post-root-package-install'])) {
+      unset($config['scripts']['post-root-package-install']);
+    }
+
+    $composer_json->write($config);
+  }
+
+  /**
+   * Update PHP namespaces.
+   *
+   * @param array $params
+   *   The array of parameters.
+   */
+  private static function updateNamespacesOnFiles(array $params): void {
     $filenames = glob('src/*/*.php');
+
     if ($filenames === FALSE) {
       throw new \RuntimeException('An error occurred while reading the contents of the src/ folder.');
     }
+
     $filenames[] = 'behat.yml.dist';
+
     foreach ($filenames as $filename) {
       $file = file_get_contents($filename);
-      $file = preg_replace('/' . preg_quote('OpenEuropa\my_site\\', '/') . '/', $namespace, $file);
+      $file = preg_replace('/' . preg_quote('OpenEuropa\my_site\\', '/') . '/', $params['namespace'], $file);
       file_put_contents($filename, $file);
     }
+  }
 
-    // Update the configuration file.
+  /**
+   * Update the configuration file.
+   *
+   * @param array $params
+   *   The array of parameters.
+   */
+  private static function updateRunnerFile(array $params): void {
     $file = file_get_contents('runner.yml.dist');
-    $file = preg_replace('/My OpenEuropa site/', trim($project_name), $file);
-    $file = preg_replace('/openeuropa_site/', $machine_name, $file);
+    $file = preg_replace('/My OpenEuropa site/', trim($params['project_name']), $file);
+    $file = preg_replace('/openeuropa_site/', $params['machine_name'], $file);
 
     file_put_contents('runner.yml.dist', $file);
+  }
 
-    // Remove files
-
+  /**
+   * Clean file from the repo.
+   */
+  private static function cleanFile(): void {
     // Setup the site README.md.
     unlink('README.md');
     rename('README.md.dist', 'README.md');
@@ -102,28 +169,19 @@ class SetupWizard {
 
     // Remove the .drone.yml.
     unlink('.drone.yml');
+  }
 
-    // Remove the configuration related to the setup wizard.
-    unset($config['scripts']['cleanup']);
-    unset($config['scripts']['setup']);
-    $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php']);
-    if (empty($config['autoload']['classmap'])) {
-      unset($config['autoload']['classmap']);
-    }
-    $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['@cleanup']);
-    if (empty($config['scripts']['post-create-project-cmd'])) {
-      unset($config['scripts']['post-create-project-cmd']);
-    }
-    $config['scripts']['post-root-package-install'] = array_diff($config['scripts']['post-root-package-install'], ['@setup']);
-    if (empty($config['scripts']['post-root-package-install'])) {
-      unset($config['scripts']['post-root-package-install']);
-    }
-
-    $composer_json->write($config);
-
-    // Dump autoload after updating composer.json "autoload" values.
+  /**
+   * Dump autoload after updating composer.json "autoload" values.
+   */
+  private static function composerDumpAutoload(): void {
     exec('composer dump-autoload');
+  }
 
+  /**
+   * Create all folder for custom code on a lib folder.
+   */
+  private static function createLibDir(): void {
     // Create folder for custom code.
     $fs = new Filesystem();
     $fs->mkdir('lib');
@@ -134,17 +192,15 @@ class SetupWizard {
       'themes',
     ];
     foreach ($dirs as $dir) {
-      if (!$fs->exists('lib/'. $dir)) {
-        $fs->mkdir('lib/'. $dir);
-        $fs->touch('lib/'. $dir . '/.gitkeep');
+      if (!$fs->exists('lib/' . $dir)) {
+        $fs->mkdir('lib/' . $dir);
+        $fs->touch('lib/' . $dir . '/.gitkeep');
       }
     }
-
-    return TRUE;
   }
 
   /**
-   * Removes the setup wizard.
+   * Remove the setup wizard file.
    */
   public static function cleanup(): void {
     unlink('scripts/composer/SetupWizard.php');
