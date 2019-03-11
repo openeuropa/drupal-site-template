@@ -1,0 +1,11 @@
+{
+  "vendor/package": {
+    "name": "openeuropa/drupal-site-template",
+    "version": "0.0.0",
+    "source": {
+      "url": "./",
+      "type": "git",
+      "reference": "OPENEUROPA-1715"
+    }
+  }
+}
