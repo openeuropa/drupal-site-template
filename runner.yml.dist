@@ -1,18 +1,36 @@
+project:
+  id: myproject
+  name: myname
+  mail: myemail
+  url: production_url
 drupal:
   root: "web"
   base_url: "http://web:8080/web"
-  database:
-    host: "mysql"
-    port: "3306"
-    name: "openeuropa_site"
-    user: "root"
-    password: ""
   site:
     profile: "oe_profile"
     name: "My OpenEuropa site"
-  settings:
-    config_directories:
-      sync: '../config/sync'
+
+settings: &settings |
+  $databases['default']['default'] = array (
+    'database' => getenv('DATABASE_NAME'),
+    'username' => getenv('DATABASE_USERNAME'),
+    'password' => getenv('DATABASE_PASSWORD'),
+    'prefix' => getenv('DATABASE_PREFIX'),
+    'host' => getenv('DATABASE_HOST'),
+    'port' => getenv('DATABASE_PORT'),
+    'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+    'driver' => 'mysql',
+  );
+
+  $config['cas.settings']['server']['hostname'] = getenv('CAS_HOSTNAME');
+  $config['cas.settings']['server']['port'] = getenv('CAS_PORT');
+  $config['cas.settings']['server']['verify'] = '2';
+
+  $config_directories['sync'] = '../config/sync';
+
+  if (file_exists($app_root . '/' . $site_path . '/settings.dist.php')) {
+    include $app_root . '/' . $site_path . '/settings.dist.php';
+  }
 
 selenium:
   host: "http://selenium"
@@ -21,8 +39,26 @@ selenium:
 
 commands:
   drupal:site-setup:
-    - { task: "run", command: "drupal:drush-setup" }
-    - { task: "run", command: "drupal:settings-setup" }
-    - { task: "run", command: "setup:behat" }
-  setup:behat:
-    - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
+    - task: "copy"
+      from: "${drupal.root}/sites/default/default.settings.php"
+      to: "${drupal.root}/sites/default/settings.php"
+
+    - task: "append"
+      file: "${drupal.root}/sites/default/settings.php"
+      text: *settings
+
+  drupal:build-dist:
+    - { task: "remove", file: "dist" }
+    - { task: "mkdir", dir: "dist" }
+    - { task: "copy", from: "config", to: "dist/config" }
+    - { task: "copy", from: "composer.json", to: "dist/composer.json" }
+    - { task: "copy", from: "composer.lock", to: "dist/composer.lock" }
+    - 'composer install --no-dev --optimize-autoloader --working-dir=dist'
+
+    - task: "copy"
+      from: "dist/${drupal.root}/sites/default/default.settings.php"
+      to: "${drupal.root}/sites/default/settings.php"
+
+    - task: "append"
+      file: "dist/${drupal.root}/sites/default/settings.php"
+      text: *settings
