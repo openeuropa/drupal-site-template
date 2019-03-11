@@ -5,7 +5,7 @@
     "source": {
       "url": "./",
       "type": "git",
-      "reference": "OPENEUROPA-1715"
+      "reference": "master"
     }
   }
 }
