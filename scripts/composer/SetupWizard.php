@@ -161,8 +161,9 @@ class SetupWizard {
       unlink('CHANGELOG.md');
     }
 
-    // Remove the .drone.yml.
+    // Remove the CI files.
     unlink('.drone.yml');
+    unlink('packages.json');
   }
 
   /**
