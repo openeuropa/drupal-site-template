@@ -3,7 +3,7 @@ imports:
 parameters:
   tasks.phpcs.ignore_patterns:
     - vendor/
-    - build/
+    - web/
   tasks.phpcs.triggered_by:
     - php
     - module

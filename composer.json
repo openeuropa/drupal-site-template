@@ -53,11 +53,11 @@
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
         "installer-paths": {
-            "build/core": ["type:drupal-core"],
-            "build/libraries/{$name}": ["type:drupal-library"],
-            "build/modules/contrib/{$name}": ["type:drupal-module"],
-            "build/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "build/themes/contrib/{$name}": ["type:drupal-theme"]
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"]
         }
     },
     "autoload": {
