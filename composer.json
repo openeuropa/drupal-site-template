@@ -30,6 +30,9 @@
         ],
         "post-create-project-cmd": [
             "DrupalSiteTemplate\\composer\\SetupWizard::cleanup"
+        ],
+        "post-install-cmd": [
+            "DrupalComposer\\DrupalScaffold\\Plugin::scaffold"
         ]
     },
     "repositories": {

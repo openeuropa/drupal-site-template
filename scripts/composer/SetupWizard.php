@@ -191,6 +191,11 @@ class SetupWizard {
         $fs->touch('lib/' . $dir . '/.gitkeep');
       }
     }
+
+    // Create folder for configuration.
+    $fs->mkdir('config');
+    $fs->mkdir('config/sync');
+    $fs->touch('config/sync/.gitkeep');
   }
 
   /**
