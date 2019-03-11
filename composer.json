@@ -26,13 +26,11 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "@setup"
+            "DrupalSiteTemplate\\composer\\SetupWizard::setup"
         ],
         "post-create-project-cmd": [
-            "@cleanup"
-        ],
-        "cleanup": "DrupalSiteTemplate\\composer\\SetupWizard::cleanup",
-        "setup": "DrupalSiteTemplate\\composer\\SetupWizard::setup"
+            "DrupalSiteTemplate\\composer\\SetupWizard::cleanup"
+        ]
     },
     "repositories": {
         "drupal": {
