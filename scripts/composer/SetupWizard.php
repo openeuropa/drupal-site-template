@@ -6,6 +6,7 @@ namespace DrupalSiteTemplate\composer;
 
 use Composer\Json\JsonFile;
 use Composer\Script\Event;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Setup wizard to handle user input during initial composer installation.
@@ -81,7 +82,10 @@ class SetupWizard {
     $file = file_get_contents('runner.yml.dist');
     $file = preg_replace('/My OpenEuropa site/', trim($project_name), $file);
     $file = preg_replace('/openeuropa_site/', $machine_name, $file);
+
     file_put_contents('runner.yml.dist', $file);
+
+    // Remove files
 
     // Setup the site README.md.
     unlink('README.md');
@@ -119,6 +123,22 @@ class SetupWizard {
 
     // Dump autoload after updating composer.json "autoload" values.
     exec('composer dump-autoload');
+
+    // Create folder for custom code.
+    $fs = new Filesystem();
+    $fs->mkdir('lib');
+
+    $dirs = [
+      'modules',
+      'profiles',
+      'themes',
+    ];
+    foreach ($dirs as $dir) {
+      if (!$fs->exists('lib/'. $dir)) {
+        $fs->mkdir('lib/'. $dir);
+        $fs->touch('lib/'. $dir . '/.gitkeep');
+      }
+    }
 
     return TRUE;
   }
