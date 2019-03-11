@@ -4,7 +4,7 @@ workspace:
 
 services:
   web:
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     environment:
       - DOCUMENT_ROOT=/test/openeuropa-site
       - COMPOSER_CACHE_DIR=/cache/composer
@@ -22,7 +22,7 @@ pipeline:
   # Download all dependencies.
   composer-install:
     group: prepare
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     environment:
       - DRUPAL_BASE_URL=http://web:8080/web
     volumes:
@@ -49,13 +49,18 @@ pipeline:
   # Run grumphp tests.
   test-grumphp:
     group: test
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     commands:
       - ./vendor/bin/grumphp run
 
   # Run behat tests.
   test-behat:
     group: test
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     commands:
       - ./vendor/bin/behat --strict
+
+matrix:
+  PHP_VERSION:
+    - 7.1
+    - 7.2
