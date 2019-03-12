@@ -5,8 +5,6 @@ workspace:
 services:
   web:
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
-    environment:
-      - DOCUMENT_ROOT=/test/openeuropa-site-test
   mysql:
     image: percona/percona-server:5.6
     environment:
@@ -25,20 +23,20 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
-      - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template openeuropa-site-test
+      - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template drupal-site-test
 
   # Initialize git.
   git-init:
     image: fpfis/httpd-php-dev:7.1
     commands:
-      - cd openeuropa-site-test
+      - cd drupal-site-test
       - git init
 
   # Install the drupal site.
   site-install:
     image: fpfis/httpd-php-dev:7.1
     commands:
-      - cd openeuropa-site-test
+      - cd drupal-site-test
       - ./vendor/bin/run drupal-dev:site-setup
       - ./vendor/bin/run drupal:site-install
 
@@ -47,7 +45,7 @@ pipeline:
     group: test
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     commands:
-      - cd openeuropa-site-test
+      - cd drupal-site-test
       - ./vendor/bin/grumphp run
 
   # Run behat tests.
@@ -55,7 +53,10 @@ pipeline:
     group: test
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     commands:
-      - cd openeuropa-site-test
+      - cd drupal-site-test
+      # Reset permission since installation runs as root. @todo Fix this.
+      - ./vendor/bin/drush -y config-set system.performance css.preprocess 0
+      - ./vendor/bin/drush -y config-set system.performance js.preprocess 0
       - ./vendor/bin/behat --strict
 
 matrix:

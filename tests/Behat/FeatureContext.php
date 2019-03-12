@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace OpenEuropa\my_site\Tests\Behat;
+namespace OpenEuropa\Drupal\Tests\Behat;
 
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 

@@ -5,7 +5,7 @@ project:
   url: production_url
 drupal:
   root: "web"
-  base_url: "http://web:8080/web"
+  base_url: "http://web:8080/drupal-site-test/web"
   database:
     host: "mysql"
     port: "3306"
