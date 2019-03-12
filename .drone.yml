@@ -27,6 +27,13 @@ pipeline:
     commands:
       - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template openeuropa-site-test
 
+  # Initialize git.
+  git-init:
+    image: fpfis/httpd-php-dev:7.1
+    commands:
+      - cd openeuropa-site-test
+      - git init
+
   # Install the drupal site.
   site-install:
     image: fpfis/httpd-php-dev:7.1
