@@ -1,6 +1,6 @@
 drupal:
-  root: "web"
-  base_url: "http://web:8080/web"
+  root: ${env.DRUPAL_ROOT}
+  base_url: ${env.DRUPAL_BASE_URL}
   site:
     profile: "oe_profile"
     name: "My OpenEuropa site"
