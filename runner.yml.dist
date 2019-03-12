@@ -9,6 +9,10 @@ drupal:
   site:
     profile: "oe_profile"
     name: "My OpenEuropa site"
+    generate_db_url: false
+  account:
+    name: ${env.ACCOUNT_USERNAME}
+    password: ${env.ACCOUNT_PASSWORD}
 
 settings: &settings |
   $databases['default']['default'] = array (
