@@ -12,6 +12,7 @@
         "drupal-composer/drupal-scaffold": "^2.5",
         "drupal/core": "^8.6",
         "drush/drush": "^9.0",
+        "openeuropa/composer-artifacts": "~0.1",
         "openeuropa/oe_profile": "^0.2",
         "openeuropa/oe_theme": "^0.9",
         "webflo/drupal-finder": "^1.0",
@@ -21,7 +22,6 @@
         "drupal/console": "~1.6",
         "drupal/drupal-extension": "~4.0",
         "ec-europa/toolkit": "dev-release/4.x",
-        "openeuropa/composer-artifacts": "~0.1",
         "openeuropa/task-runner": "^1.0.0-beta5",
         "webflo/drupal-core-require-dev": "~8.6"
     },

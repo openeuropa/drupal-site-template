@@ -7,8 +7,8 @@ default:
         - Drupal\DrupalExtension\Context\MarkupContext
         - Drupal\DrupalExtension\Context\MessageContext
         - Drupal\DrupalExtension\Context\MinkContext
-        - OpenEuropa\my_site\Tests\Behat\DrupalContext
-        - OpenEuropa\my_site\Tests\Behat\FeatureContext
+        - OpenEuropa\Drupal\Tests\Behat\DrupalContext
+        - OpenEuropa\Drupal\Tests\Behat\FeatureContext
   extensions:
     Drupal\MinkExtension:
       goutte: ~

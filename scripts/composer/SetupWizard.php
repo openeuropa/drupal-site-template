@@ -53,7 +53,7 @@ class SetupWizard {
     $params['namespace'] = $params['camelcased_organization_name'] . '\\' . $params['machine_name'] . '\\';
 
     self::updateConfig($composer_filename, $params);
-    self::updateNamespacesOnFiles($params);
+    // self::updateNamespacesOnFiles($params);
     self::updateRunnerFile($params);
     self::cleanFile();
     self::createLibDir();
@@ -84,23 +84,25 @@ class SetupWizard {
     if (!empty($config['autoload']['psr-4'])) {
       unset($config['autoload']['psr-4']);
     }
-    $config['autoload']['psr-4'][$params['namespace']] = './src/';
+    $config['autoload']['psr-4'][$params['namespace'] . 'Tests\\'] = './tests/';
+
+    if (!empty($config['autoload-dev']['psr-4'])) {
+      unset($config['autoload-dev']['psr-4']);
+    }
+    $config['autoload-dev']['psr-4'][$params['namespace'] . 'Tests\\'] = './tests/';
 
     // Remove the configuration related to the setup wizard.
-    unset($config['scripts']['cleanup']);
-    unset($config['scripts']['setup']);
-
     $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php']);
     if (empty($config['autoload']['classmap'])) {
       unset($config['autoload']['classmap']);
     }
 
-    $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['@cleanup']);
+    $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['DrupalSiteTemplate\\composer\\SetupWizard::cleanup']);
     if (empty($config['scripts']['post-create-project-cmd'])) {
       unset($config['scripts']['post-create-project-cmd']);
     }
 
-    $config['scripts']['post-root-package-install'] = array_diff($config['scripts']['post-root-package-install'], ['@setup']);
+    $config['scripts']['post-root-package-install'] = array_diff($config['scripts']['post-root-package-install'], ['DrupalSiteTemplate\\composer\\SetupWizard::setup']);
     if (empty($config['scripts']['post-root-package-install'])) {
       unset($config['scripts']['post-root-package-install']);
     }
@@ -115,17 +117,17 @@ class SetupWizard {
    *   The array of parameters.
    */
   private static function updateNamespacesOnFiles(array $params): void {
-    $filenames = glob('src/*/*.php');
+    $filenames = glob('tests/*/*.php');
 
     if ($filenames === FALSE) {
-      throw new \RuntimeException('An error occurred while reading the contents of the src/ folder.');
+      throw new \RuntimeException('An error occurred while reading the contents of the tests/ folder.');
     }
 
     $filenames[] = 'behat.yml.dist';
 
     foreach ($filenames as $filename) {
       $file = file_get_contents($filename);
-      $file = preg_replace('/' . preg_quote('OpenEuropa\my_site\\', '/') . '/', $params['namespace'], $file);
+      $file = preg_replace('/' . preg_quote('OpenEuropa\\my_site\\', '/') . '/', $params['namespace'], $file);
       file_put_contents($filename, $file);
     }
   }
@@ -164,6 +166,10 @@ class SetupWizard {
     // Remove the CI files.
     unlink('.drone.yml');
     unlink('packages.json');
+
+    // Remove github files.
+    unlink('.github/pull_request_template.md');
+    rmdir('.github');
   }
 
   /**
@@ -204,6 +210,8 @@ class SetupWizard {
    */
   public static function cleanup(): void {
     unlink('scripts/composer/SetupWizard.php');
+    rmdir('scripts/composer');
+    rmdir('scripts');
   }
 
 }
