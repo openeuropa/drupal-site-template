@@ -6,7 +6,7 @@ services:
   web:
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     environment:
-      - DOCUMENT_ROOT=/test/openeuropa-site
+      - DOCUMENT_ROOT=/test/openeuropa-site-test
   mysql:
     image: percona/percona-server:5.6
     environment:
@@ -25,14 +25,13 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
-      - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template /test/openeuropa-site-test
+      - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template openeuropa-site-test
 
   # Install the drupal site.
   site-install:
     image: fpfis/httpd-php-dev:7.1
-    environment:
-      - DOCUMENT_ROOT=/test/openeuropa-site-test
     commands:
+      - cd openeuropa-site-test
       - ./vendor/bin/run drupal-dev:site-setup
       - ./vendor/bin/run drupal:site-install
 
@@ -40,18 +39,16 @@ pipeline:
   test-grumphp:
     group: test
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
-    environment:
-      - DOCUMENT_ROOT=/test/openeuropa-site-test
     commands:
+      - cd openeuropa-site-test
       - ./vendor/bin/grumphp run
 
   # Run behat tests.
   test-behat:
     group: test
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
-    environment:
-      - DOCUMENT_ROOT=/test/openeuropa-site-test
     commands:
+      - cd openeuropa-site-test
       - ./vendor/bin/behat --strict
 
 matrix:
