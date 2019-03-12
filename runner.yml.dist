@@ -9,23 +9,25 @@ drupal:
     name: ${env.ACCOUNT_USERNAME}
     password: ${env.ACCOUNT_PASSWORD}
 
-settings: &settings |
-  $databases['default']['default'] = array (
-    'database' => getenv('DATABASE_NAME'),
-    'username' => getenv('DATABASE_USERNAME'),
-    'password' => getenv('DATABASE_PASSWORD'),
-    'prefix' => getenv('DATABASE_PREFIX'),
-    'host' => getenv('DATABASE_HOST'),
-    'port' => getenv('DATABASE_PORT'),
-    'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-    'driver' => 'mysql',
-  );
+toolkit:
+  drupal:
+    settings: &settings |
+      $databases['default']['default'] = array (
+        'database' => getenv('DATABASE_NAME'),
+        'username' => getenv('DATABASE_USERNAME'),
+        'password' => getenv('DATABASE_PASSWORD'),
+        'prefix' => getenv('DATABASE_PREFIX'),
+        'host' => getenv('DATABASE_HOST'),
+        'port' => getenv('DATABASE_PORT'),
+        'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+        'driver' => 'mysql',
+      );
 
-  $config_directories['sync'] = '../config/sync';
+      $config_directories['sync'] = '../config/sync';
 
-  if (file_exists($app_root . '/' . $site_path . '/settings.dist.php')) {
-    include $app_root . '/' . $site_path . '/settings.dist.php';
-  }
+      if (file_exists($app_root . '/' . $site_path . '/settings.override.php')) {
+        include $app_root . '/' . $site_path . '/settings.override.php';
+      }
 
 selenium:
   host: "http://selenium"
