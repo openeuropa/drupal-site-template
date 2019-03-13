@@ -99,6 +99,10 @@ class SetupWizard {
       unset($config['autoload']['classmap']);
     }
 
+    if (empty($config['autoload'])) {
+      unset($config['autoload']);
+    }
+
     $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['DrupalSiteTemplate\\composer\\SetupWizard::cleanup']);
     if (empty($config['scripts']['post-create-project-cmd'])) {
       unset($config['scripts']['post-create-project-cmd']);
@@ -107,6 +111,10 @@ class SetupWizard {
     $config['scripts']['post-root-package-install'] = array_diff($config['scripts']['post-root-package-install'], ['DrupalSiteTemplate\\composer\\SetupWizard::setup']);
     if (empty($config['scripts']['post-root-package-install'])) {
       unset($config['scripts']['post-root-package-install']);
+    }
+
+    if (empty($config['scripts'])) {
+      unset($config['scripts']);
     }
 
     $composer_json->write($config);
