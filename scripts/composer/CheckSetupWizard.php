@@ -14,7 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 class CheckSetupWizard {
 
   /**
-   * Check the function setup.
+   * Check the function Setup Wizard.
    *
    * @param \Composer\Script\Event $event
    *   The Composer event that triggered the wizard.
@@ -26,19 +26,15 @@ class CheckSetupWizard {
    *   Thrown when an error occurs during the setup.
    */
   public static function check(Event $event): bool {
-
+    // Check the configuration file.
     $composer_filename = $event->getComposer()->getConfig()->getConfigSource()->getName();
-    // self::updateRunnerFile($params);
-    // self::composerDumpAutoload();
-
-    // self::updateConfig($composer_filename, $params);
     $composer_json = new JsonFile($composer_filename);
     $config = $composer_json->read();
 
-    self::assertEqualsConfig($config['name'], 'openeuropa/drupal-site-template');
-    self::assertEqualsConfig($config['description'], 'A template for setting up an OpenEuropa Drupal site.');
+    self::assertConfigChange($config['name'], 'openeuropa/drupal-site-template');
+    self::assertConfigChange($config['description'], 'A template for setting up an OpenEuropa Drupal site.');
 
-    // Check Files.
+    // Check the file structure.
     $filenames = [
       'lib',
       'lib/modules',
@@ -50,7 +46,8 @@ class CheckSetupWizard {
       'config',
       'config/sync',
       'config/sync/.gitkeep',
-      'vendor'
+      'vendor',
+      'web',
     ];
     foreach ($filenames as $filename) {
       self::assertExistFile($filename);
@@ -64,16 +61,16 @@ class CheckSetupWizard {
       '.drone.yml',
       'packages.json',
       '.github/pull_request_template.md',
-      '.github'
+      '.github',
     ];
     foreach ($filenames as $filename) {
       self::assertNotExistFile($filename);
     }
 
-    // Check runner.yml.dist
+    // Check runner.yml.dist.
     $strings = [
       'My OpenEuropa site',
-      'openeuropa_site'
+      'openeuropa_site',
     ];
     $assert_filename = "runner.yml.dist";
     foreach ($strings as $string) {
@@ -85,12 +82,14 @@ class CheckSetupWizard {
   }
 
   /**
-   * Dump autoload after updating composer.json "autoload" values.
+   * Assert that the the configuration has been changed.
    *
-   * @param string $actual
    * @param string $previous
+   *   The previous value.
+   * @param string $actual
+   *   The value that should be tested.
    */
-  private static function assertEqualsConfig(string $actual = '', string $previous): void {
+  private static function assertConfigChange(string $previous, string $actual = ''): void {
     if ($actual === '') {
       throw new \RuntimeException('The value tested is NULL.');
     }
@@ -101,20 +100,10 @@ class CheckSetupWizard {
   }
 
   /**
-   * Dump autoload after updating composer.json "autoload" values.
-   *
-   * @param string $actual
-   */
-  private static function assertNotExistsConfig(string $config = ''): void {
-    if ($config === '') {
-      throw new \RuntimeException('The value tested is NULL.');
-    }
-  }
-
-  /**
-   * Dump autoload after updating composer.json "autoload" values.
+   * Assert that the file exists.
    *
    * @param string $filename
+   *   The filename of the file.
    */
   private static function assertExistFile(string $filename): void {
     $fs = new Filesystem();
@@ -125,9 +114,10 @@ class CheckSetupWizard {
   }
 
   /**
-   * Dump autoload after updating composer.json "autoload" values.
+   * Assert that the file doesn't exist.
    *
    * @param string $filename
+   *   The filename of the file.
    */
   private static function assertNotExistFile(string $filename): void {
     $fs = new Filesystem();
@@ -138,12 +128,15 @@ class CheckSetupWizard {
   }
 
   /**
-   * Dump autoload after updating composer.json "autoload" values.
+   * Assert that a file doesn't contain a string.
    *
    * @param string $filename
+   *   The filename of the file.
+   * @param string $string
+   *   A string that the file should not contain.
    */
   private static function assertFileNotContain(string $filename, string $string): void {
-    if (strpos(file_get_contents($filename), $string) !== false) {
+    if (strpos(file_get_contents($filename), $string) !== FALSE) {
       throw new \RuntimeException('The ' . $filename . ' file should not contain $string.');
     }
   }
