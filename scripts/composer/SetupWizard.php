@@ -53,6 +53,7 @@ class SetupWizard {
     $params['namespace'] = $params['camelcased_organization_name'] . '\\' . $params['machine_name'] . '\\';
 
     self::updateConfig($composer_filename, $params);
+    // Dynamic Namespace seems not working with a composer:create-project.
     // self::updateNamespacesOnFiles($params);
     self::updateRunnerFile($params);
     self::cleanFile();
@@ -82,7 +83,7 @@ class SetupWizard {
     $config['description'] = $params['description'];
 
     // Remove the configuration related to the setup wizard.
-    $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php']);
+    $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php', 'scripts/composer/CheckSetupWizard.php']);
     if (empty($config['autoload']['classmap'])) {
       unset($config['autoload']['classmap']);
     }
@@ -91,7 +92,7 @@ class SetupWizard {
       unset($config['autoload']);
     }
 
-    $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['DrupalSiteTemplate\\composer\\SetupWizard::cleanup']);
+    $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['DrupalSiteTemplate\\composer\\CheckSetupWizard::check', 'DrupalSiteTemplate\\composer\\SetupWizard::cleanup']);
     if (empty($config['scripts']['post-create-project-cmd'])) {
       unset($config['scripts']['post-create-project-cmd']);
     }
@@ -204,53 +205,17 @@ class SetupWizard {
   }
 
   /**
-   * Check the function setup.
+   * Remove the setup wizard file.
    *
    * @param \Composer\Script\Event $event
    *   The Composer event that triggered the wizard.
-   *
-   * @return bool
-   *   TRUE on success.
-   *
-   * @throws \Exception
-   *   Thrown when an error occurs during the setup.
    */
-  public static function check(Event $event): bool {
-    $composer_filename = $event->getComposer()->getConfig()->getConfigSource()->getName();
-    // self::updateNamespacesOnFiles($params);
-    // self::updateRunnerFile($params);
-    // self::cleanFile();
-    // self::createLibDir();
-    // self::composerDumpAutoload();
-
-    // self::updateConfig($composer_filename, $params);
-    $composer_json = new JsonFile($composer_filename);
-    $config = $composer_json->read();
-
-    print_r($config['name']);
-
-    if (!$config['name'] && $config['name'] !== 'openeuropa/drupal-site-template') {
-      throw new \RuntimeException('An error occurred while reading the contents of the tests/ folder.');
-    }
-
-    // assertNotEmpty($config['name']);
-    // assertNotEmpty($config['description']);
-    // assertNotEquals('openeuropa/drupal-site-template', $config['name']);
-    // assertNotEquals("A template for setting up an OpenEuropa Drupal site.", $config['description']);
-
-    $fs = new Filesystem();
-
-
-    return TRUE;
-  }
-
-  /**
-   * Remove the setup wizard file.
-   */
-  public static function cleanup(): void {
+  public static function cleanup(Event $event): void {
+    unlink('scripts/composer/CheckSetupWizard.php');
     unlink('scripts/composer/SetupWizard.php');
     rmdir('scripts/composer');
     rmdir('scripts');
+    $event->getIO()->write("Setup wizard file cleaned.");
   }
 
 }
