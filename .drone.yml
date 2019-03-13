@@ -28,12 +28,6 @@ pipeline:
     commands:
       - composer install --ansi --no-suggest --no-progress
 
-  # Check vulnerable packages @Sensiolabs.
-  test-composer-deps:
-    group: check-prepare
-    image: phpdrone/composer-sa-checker
-    lock_file: composer.lock
-
   # Install the drupal site.
   site-install:
     image: fpfis/httpd-php-dev:7.1
