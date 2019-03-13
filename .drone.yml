@@ -23,6 +23,8 @@ pipeline:
   composer-install:
     group: prepare
     image: fpfis/httpd-php-dev:7.1
+    environment:
+      - DRUPAL_BASE_URL=http://web:8080/web
     volumes:
       - /cache:/cache
     commands:
