@@ -20,8 +20,8 @@ pipeline:
   composer-create-project:
     group: pre-prepare
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
-    volumes:
-      - /cache:/cache
+    # volumes:
+    #   - /cache:/cache
     commands:
       - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template drupal-site-test
 
