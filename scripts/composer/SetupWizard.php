@@ -81,15 +81,17 @@ class SetupWizard {
     $config['name'] = $params['package_name'];
     $config['description'] = $params['description'];
 
+    /*
     if (!empty($config['autoload']['psr-4'])) {
       unset($config['autoload']['psr-4']);
     }
-    $config['autoload']['psr-4'][$params['namespace'] . 'Tests\\'] = './tests/';
+    $config['autoload']['psr-4'][$params['namespace'] . 'Tests\\'] = './src/';
 
     if (!empty($config['autoload-dev']['psr-4'])) {
       unset($config['autoload-dev']['psr-4']);
     }
     $config['autoload-dev']['psr-4'][$params['namespace'] . 'Tests\\'] = './tests/';
+    */
 
     // Remove the configuration related to the setup wizard.
     $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php']);

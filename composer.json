@@ -64,14 +64,11 @@
     "autoload": {
         "classmap": [
             "scripts/composer/SetupWizard.php"
-        ],
-        "psr-4": {
-            "OpenEuropa\\my_site\\": "./src/"
-        }
+        ]
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenEuropa\\my_site\\Tests\\": "./tests/"
+            "OpenEuropa\\Drupal\\Tests\\": "./tests/"
         }
     },
     "conflict": {
