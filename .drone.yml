@@ -14,9 +14,8 @@ services:
       - DATABASE_PREFIX=
       - DATABASE_HOST=mysql
       - DATABASE_PORT=3306
-      - ACCOUNT_USERNAME=admin
-      - ACCOUNT_PASSWORD=admin
-      - DRUPAL_ROOT=web
+      - DRUPAL_ACCOUNT_USERNAME=admin
+      - DRUPAL_ACCOUNT_PASSWORD=admin
       - DRUPAL_BASE_URL=http://web:8080/web
   mysql:
     image: percona/percona-server:5.6

@@ -1,13 +1,13 @@
 drupal:
-  root: ${env.DRUPAL_ROOT}
+  root: web
   base_url: ${env.DRUPAL_BASE_URL}
   site:
     profile: "oe_profile"
     name: "My OpenEuropa site"
     generate_db_url: false
   account:
-    name: ${env.ACCOUNT_USERNAME}
-    password: ${env.ACCOUNT_PASSWORD}
+    name: ${env.DRUPAL_ACCOUNT_USERNAME}
+    password: ${env.DRUPAL_ACCOUNT_PASSWORD}
 
 toolkit:
   drupal:
