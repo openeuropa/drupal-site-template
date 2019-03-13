@@ -4,7 +4,7 @@ project:
   mail: myemail
   url: production_url
 drupal:
-  root: "web"
+  root: "drupal-site-test/web"
   base_url: "http://web:8080/drupal-site-test/web"
   database:
     host: "mysql"

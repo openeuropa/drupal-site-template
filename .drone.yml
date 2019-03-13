@@ -54,7 +54,6 @@ pipeline:
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     commands:
       - cd drupal-site-test
-      - less ./behat.yml
       # Reset permission since installation runs as root. @todo Fix this.
       - ./vendor/bin/drush -y config-set system.performance css.preprocess 0
       - ./vendor/bin/drush -y config-set system.performance js.preprocess 0
