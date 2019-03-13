@@ -29,6 +29,7 @@
             "DrupalSiteTemplate\\composer\\SetupWizard::setup"
         ],
         "post-create-project-cmd": [
+            "DrupalSiteTemplate\\composer\\SetupWizard::check",
             "DrupalSiteTemplate\\composer\\SetupWizard::cleanup"
         ],
         "post-install-cmd": [

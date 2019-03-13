@@ -81,18 +81,6 @@ class SetupWizard {
     $config['name'] = $params['package_name'];
     $config['description'] = $params['description'];
 
-    /*
-    if (!empty($config['autoload']['psr-4'])) {
-      unset($config['autoload']['psr-4']);
-    }
-    $config['autoload']['psr-4'][$params['namespace'] . 'Tests\\'] = './src/';
-
-    if (!empty($config['autoload-dev']['psr-4'])) {
-      unset($config['autoload-dev']['psr-4']);
-    }
-    $config['autoload-dev']['psr-4'][$params['namespace'] . 'Tests\\'] = './tests/';
-    */
-
     // Remove the configuration related to the setup wizard.
     $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php']);
     if (empty($config['autoload']['classmap'])) {
@@ -183,13 +171,6 @@ class SetupWizard {
   }
 
   /**
-   * Dump autoload after updating composer.json "autoload" values.
-   */
-  private static function composerDumpAutoload(): void {
-    exec('composer dump-autoload');
-  }
-
-  /**
    * Create all folder for custom code on a lib folder.
    */
   private static function createLibDir(): void {
@@ -213,6 +194,54 @@ class SetupWizard {
     $fs->mkdir('config');
     $fs->mkdir('config/sync');
     $fs->touch('config/sync/.gitkeep');
+  }
+
+  /**
+   * Dump autoload after updating composer.json "autoload" values.
+   */
+  private static function composerDumpAutoload(): void {
+    exec('composer dump-autoload');
+  }
+
+  /**
+   * Check the function setup.
+   *
+   * @param \Composer\Script\Event $event
+   *   The Composer event that triggered the wizard.
+   *
+   * @return bool
+   *   TRUE on success.
+   *
+   * @throws \Exception
+   *   Thrown when an error occurs during the setup.
+   */
+  public static function check(Event $event): bool {
+    $composer_filename = $event->getComposer()->getConfig()->getConfigSource()->getName();
+    // self::updateNamespacesOnFiles($params);
+    // self::updateRunnerFile($params);
+    // self::cleanFile();
+    // self::createLibDir();
+    // self::composerDumpAutoload();
+
+    // self::updateConfig($composer_filename, $params);
+    $composer_json = new JsonFile($composer_filename);
+    $config = $composer_json->read();
+
+    print_r($config['name']);
+
+    if (!$config['name'] && $config['name'] !== 'openeuropa/drupal-site-template') {
+      throw new \RuntimeException('An error occurred while reading the contents of the tests/ folder.');
+    }
+
+    // assertNotEmpty($config['name']);
+    // assertNotEmpty($config['description']);
+    // assertNotEquals('openeuropa/drupal-site-template', $config['name']);
+    // assertNotEquals("A template for setting up an OpenEuropa Drupal site.", $config['description']);
+
+    $fs = new Filesystem();
+
+
+    return TRUE;
   }
 
   /**
