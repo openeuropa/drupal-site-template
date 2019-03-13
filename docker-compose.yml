@@ -6,7 +6,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - .:/var/www/drupal-site-template # Non Mac users.
+      - .:/var/www/html # Non Mac users.
       # - nfsmount:/var/www/html # Mac Users with the nfsmount volume.
     environment:
       XDEBUG_CONFIG: "remote_enable=1 remote_host=10.254.254.254 remote_port=9000 idekey=PHPSTORM remote_autostart=1"
@@ -22,6 +22,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
 #    ports:
 #      - 3306:3306
+
   # Spawn a Selenium server which also includes a VNC server on localhost:5900 (the password is "secret")
   selenium:
     image: selenium/standalone-chrome-debug:3.11
