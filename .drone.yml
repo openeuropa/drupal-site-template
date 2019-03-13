@@ -22,9 +22,12 @@ pipeline:
   composer-create-project:
     group: pre-prepare
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
-    # volumes:
-    #   - /cache:/cache
+    volumes:
+      - /cache:/cache
     commands:
+      # remove the cache for internal use.
+      - rm -rf /cache/composer/vcs/-test-drupal-site-template
+      - pwd /cache/composer/vcs
       - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template drupal-site-test
 
   # Initialize git.
