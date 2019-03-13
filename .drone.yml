@@ -8,15 +8,6 @@ services:
     environment:
       - DOCUMENT_ROOT=/test/openeuropa-site
       - COMPOSER_CACHE_DIR=/cache/composer
-      - DATABASE_NAME=openeuropa_site
-      - DATABASE_USERNAME=root
-      - DATABASE_PASSWORD=
-      - DATABASE_PREFIX=
-      - DATABASE_HOST=mysql
-      - DATABASE_PORT=3306
-      - DRUPAL_ACCOUNT_USERNAME=admin
-      - DRUPAL_ACCOUNT_PASSWORD=admin
-      - DRUPAL_BASE_URL=http://web:8080/web
   mysql:
     image: percona/percona-server:5.6
     environment:
@@ -40,6 +31,16 @@ pipeline:
   # Install the drupal site.
   site-install:
     image: fpfis/httpd-php-dev:7.1
+    environment:
+      - DATABASE_NAME=openeuropa_site
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=
+      - DATABASE_PREFIX=
+      - DATABASE_HOST=mysql
+      - DATABASE_PORT=3306
+      - DRUPAL_ACCOUNT_USERNAME=admin
+      - DRUPAL_ACCOUNT_PASSWORD=admin
+      - DRUPAL_BASE_URL=http://web:8080/web
     commands:
       - ./vendor/bin/run drupal:site-install
 

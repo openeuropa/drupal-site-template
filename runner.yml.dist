@@ -1,5 +1,5 @@
 drupal:
-  root: web
+  root: "web"
   base_url: ${env.DRUPAL_BASE_URL}
   site:
     profile: "oe_profile"
@@ -43,6 +43,11 @@ commands:
     - task: "append"
       file: "${drupal.root}/sites/default/settings.php"
       text: *settings
+
+    - { task: "run", command: "setup:behat" }
+
+  setup:behat:
+     - { task: "process", source: "behat.yml.dist", destination: "behat.yml" }
 
   drupal:build-dist:
     - { task: "remove", file: "dist" }
