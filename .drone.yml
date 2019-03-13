@@ -5,8 +5,8 @@ workspace:
 services:
   web:
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
-  environment:
-    - DOCUMENT_ROOT=/test/drupal-site-template
+    environment:
+      - DOCUMENT_ROOT=/test/drupal-site-template
   mysql:
     image: percona/percona-server:5.6
     environment:
