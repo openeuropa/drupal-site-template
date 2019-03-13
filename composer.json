@@ -29,7 +29,7 @@
             "DrupalSiteTemplate\\composer\\SetupWizard::setup"
         ],
         "post-create-project-cmd": [
-            "DrupalSiteTemplate\\composer\\SetupWizard::check",
+            "DrupalSiteTemplate\\composer\\CheckSetupWizard::check",
             "DrupalSiteTemplate\\composer\\SetupWizard::cleanup"
         ],
         "post-install-cmd": [
@@ -63,7 +63,8 @@
     },
     "autoload": {
         "classmap": [
-            "scripts/composer/SetupWizard.php"
+            "scripts/composer/SetupWizard.php",
+            "scripts/composer/CheckSetupWizard.php"
         ]
     },
     "autoload-dev": {
