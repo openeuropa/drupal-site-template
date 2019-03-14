@@ -23,7 +23,7 @@ pipeline:
     group: pre-prepare
     image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     environment:
-      - DRUPAL_BASE_URL=http://web:8080/web
+      - DRUPAL_BASE_URL=http://web:8080/drupal-site-test/web
     volumes:
       - /cache:/cache
     commands:
@@ -50,7 +50,7 @@ pipeline:
       - DRUPAL_DATABASE_PORT=3306
       - DRUPAL_ACCOUNT_USERNAME=admin
       - DRUPAL_ACCOUNT_PASSWORD=admin
-      - DRUPAL_BASE_URL=http://web:8080/web
+      - DRUPAL_BASE_URL=http://web:8080/drupal-site-test/web
     commands:
       - cd drupal-site-test
       - ./vendor/bin/run drupal-dev:site-setup
