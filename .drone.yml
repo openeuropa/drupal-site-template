@@ -23,20 +23,26 @@ pipeline:
   composer-install:
     group: prepare
     image: fpfis/httpd-php-dev:7.1
+    environment:
+      - DRUPAL_BASE_URL=http://web:8080/web
     volumes:
       - /cache:/cache
     commands:
       - composer install --ansi --no-suggest --no-progress
 
-  # Check vulnerable packages @Sensiolabs.
-  test-composer-deps:
-    group: check-prepare
-    image: phpdrone/composer-sa-checker
-    lock_file: composer.lock
-
   # Install the drupal site.
   site-install:
     image: fpfis/httpd-php-dev:7.1
+    environment:
+      - DRUPAL_DATABASE_NAME=openeuropa_site
+      - DRUPAL_DATABASE_USERNAME=root
+      - DRUPAL_DATABASE_PASSWORD=
+      - DRUPAL_DATABASE_PREFIX=
+      - DRUPAL_DATABASE_HOST=mysql
+      - DRUPAL_DATABASE_PORT=3306
+      - DRUPAL_ACCOUNT_USERNAME=admin
+      - DRUPAL_ACCOUNT_PASSWORD=admin
+      - DRUPAL_BASE_URL=http://web:8080/web
     commands:
       - ./vendor/bin/run drupal:site-install
 
