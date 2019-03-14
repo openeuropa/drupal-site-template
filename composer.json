@@ -69,7 +69,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenEuropa\\Drupal\\Tests\\": "./tests/"
+            "OpenEuropa\\Site\\Tests\\": "./tests/"
         }
     },
     "conflict": {

@@ -53,8 +53,6 @@ class SetupWizard {
     $params['namespace'] = $params['camelcased_organization_name'] . '\\' . $params['machine_name'] . '\\';
 
     self::updateConfig($composer_filename, $params);
-    // Dynamic Namespace seems not working with a composer:create-project.
-    // self::updateNamespacesOnFiles($params);
     self::updateRunnerFile($params);
     self::cleanFile();
     self::createLibDir();
@@ -107,28 +105,6 @@ class SetupWizard {
     }
 
     $composer_json->write($config);
-  }
-
-  /**
-   * Update PHP namespaces.
-   *
-   * @param array $params
-   *   The array of parameters.
-   */
-  private static function updateNamespacesOnFiles(array $params): void {
-    $filenames = glob('tests/*/*.php');
-
-    if ($filenames === FALSE) {
-      throw new \RuntimeException('An error occurred while reading the contents of the tests/ folder.');
-    }
-
-    $filenames[] = 'behat.yml.dist';
-
-    foreach ($filenames as $filename) {
-      $file = file_get_contents($filename);
-      $file = preg_replace('/' . preg_quote('OpenEuropa\\my_site\\', '/') . '/', $params['namespace'], $file);
-      file_put_contents($filename, $file);
-    }
   }
 
   /**
