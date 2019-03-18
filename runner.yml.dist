@@ -1,8 +1,3 @@
-project:
-  id: myproject
-  name: myname
-  mail: myemail
-  url: production_url
 drupal:
   root: "web"
   base_url: ${env.DRUPAL_BASE_URL}
