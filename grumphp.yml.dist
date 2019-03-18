@@ -10,6 +10,7 @@ parameters:
     - inc
     - theme
     - install
+    - yml
 
   extensions:
     - OpenEuropa\CodeReview\ExtraTasksExtension
