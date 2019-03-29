@@ -55,6 +55,7 @@ pipeline:
       - cd drupal-site-test
       - ./vendor/bin/run toolkit:build-dev
       - ./vendor/bin/run drupal:site-install
+      - ./vendor/bin/drush cex -y
 
   # Run grumphp tests.
   test-grumphp:
