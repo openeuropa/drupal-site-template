@@ -30,12 +30,12 @@ One does not need to be in this repository in order to use the `composer create-
 The project can be created using the following command:
 
 ```bash
-composer create-project openeuropa/drupal-site-template --stability=dev my-openeuropa-site
+composer create-project openeuropa/drupal-site-template --stability=dev digit-my-openeuropa-site-reference
 ```
 
 For local development, to test the Setup Wizard, run `composer setup` from the root of this project.
 
-This will download the starterkit into the `my-openeuropa-site` folder and a
+This will download the starterkit into the `digit-my-openeuropa-site-reference` folder and a
 wizard will ask you for the project name and your organisation. It will use this
 information to personalize your project's configuration files.
 

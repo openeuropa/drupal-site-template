@@ -29,13 +29,13 @@ pipeline:
     commands:
       # remove the cache for internal use.
       - rm -rf /cache/composer/vcs/-test-drupal-site-template
-      - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template drupal-site-test
+      - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template digit-drupal-site-test-reference
 
   # Initialize git.
   git-init:
     image: fpfis/httpd-php-full:7.1
     commands:
-      - cd drupal-site-test
+      - cd digit-drupal-site-test-reference
       - git init
 
   # Install the drupal site.
@@ -52,7 +52,7 @@ pipeline:
       - DRUPAL_ACCOUNT_PASSWORD=admin
       - DRUPAL_BASE_URL=http://web:8080/drupal-site-test/web
     commands:
-      - cd drupal-site-test
+      - cd digit-drupal-site-test-reference
       - ./vendor/bin/run toolkit:install-clean
       - ./vendor/bin/drush cex -y
 
@@ -61,7 +61,7 @@ pipeline:
     group: test
     image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
     commands:
-      - cd drupal-site-test
+      - cd digit-drupal-site-test-reference
       - ./vendor/bin/grumphp run
 
   # Run behat tests.
@@ -69,7 +69,7 @@ pipeline:
     group: test
     image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
     commands:
-      - cd drupal-site-test
+      - cd digit-drupal-site-test-reference
       - ./vendor/bin/run toolkit:disable-drupal-cache
       - ./vendor/bin/behat --strict
 
