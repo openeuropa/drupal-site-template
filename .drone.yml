@@ -21,7 +21,7 @@ pipeline:
   # Download all dependencies.
   composer-create-project:
     group: pre-prepare
-    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
     environment:
       - DRUPAL_BASE_URL=http://web:8080/drupal-site-test/web
     volumes:
@@ -33,14 +33,14 @@ pipeline:
 
   # Initialize git.
   git-init:
-    image: fpfis/httpd-php-dev:7.1
+    image: fpfis/httpd-php-full:7.1
     commands:
       - cd drupal-site-test
       - git init
 
   # Install the drupal site.
   site-install:
-    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
     environment:
       - DRUPAL_DATABASE_NAME=openeuropa_site
       - DRUPAL_DATABASE_USERNAME=root
@@ -53,14 +53,13 @@ pipeline:
       - DRUPAL_BASE_URL=http://web:8080/drupal-site-test/web
     commands:
       - cd drupal-site-test
-      - ./vendor/bin/run toolkit:build-dev
-      - ./vendor/bin/run drupal:site-install
+      - ./vendor/bin/run toolkit:install-clean
       - ./vendor/bin/drush cex -y
 
   # Run grumphp tests.
   test-grumphp:
     group: test
-    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
     commands:
       - cd drupal-site-test
       - ./vendor/bin/grumphp run
@@ -68,12 +67,10 @@ pipeline:
   # Run behat tests.
   test-behat:
     group: test
-    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
     commands:
       - cd drupal-site-test
-      # Reset permission since installation runs as root. @todo Fix this.
-      - ./vendor/bin/drush -y config-set system.performance css.preprocess 0
-      - ./vendor/bin/drush -y config-set system.performance js.preprocess 0
+      - ./vendor/bin/run toolkit:disable-drupal-cache
       - ./vendor/bin/behat --strict
 
 matrix:
