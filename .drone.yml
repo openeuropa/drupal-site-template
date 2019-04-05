@@ -18,7 +18,19 @@ services:
       - SE_OPTS=-debug
 
 pipeline:
-  # Download all dependencies.
+  # Remove the cache for internal use.
+  clean-repo:
+    group: init
+    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
+    volumes:
+      - /cache:/cache
+    commands:
+      - rm -rf /cache/composer/vcs/-test-drupal-site-template
+    when:
+      matrix:
+        PHP_VERSION: 7.1
+
+  # Create project command.
   composer-create-project:
     group: pre-prepare
     image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
@@ -27,8 +39,6 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
-      # remove the cache for internal use.
-      - rm -rf /cache/composer/vcs/-test-drupal-site-template
       - composer create-project --repository-url=packages.json --ansi --no-progress --no-interaction openeuropa/drupal-site-template digit-drupal-site-test-reference
 
   # Initialize git.
