@@ -72,12 +72,17 @@ class CheckSetupWizard {
       'My OpenEuropa site',
       'openeuropa_site',
     ];
-    $assert_filename = "runner.yml.dist";
+    $assert_filenames = [
+      'runner.yml.dist',
+      '.env',
+    ];
     foreach ($strings as $string) {
-      self::assertFileNotContain($assert_filename, $string);
+      foreach ($assert_filenames as $assert_filename) {
+        self::assertFileNotContain($assert_filename, $string);
+      }
     }
 
-    $event->getIO()->write("Setup wizard checked.");
+    $event->getIO()->write('Setup wizard checked.');
     return TRUE;
   }
 
