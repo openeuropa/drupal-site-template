@@ -84,8 +84,7 @@ Then:
 
 ```bash
 docker-compose exec web composer install
-docker-compose exec web ./vendor/bin/run toolkit:build-dev
-docker-compose exec web ./vendor/bin/run drupal:site-install
+docker-compose exec web ./vendor/bin/run toolkit:install-clean
 ```
 
 Using default configuration, the development site files should be available in the `build` directory and the development site
