@@ -7,7 +7,7 @@
 
 # Ignore the web and test folder
 /web/
-/drupal-site-test/
+/digit-drupal-site-test-reference/
 
 # Ignore local configuration files.
 /behat.yml

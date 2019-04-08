@@ -30,12 +30,12 @@ One does not need to be in this repository in order to use the `composer create-
 The project can be created using the following command:
 
 ```bash
-composer create-project openeuropa/drupal-site-template --stability=dev my-openeuropa-site
+composer create-project openeuropa/drupal-site-template --stability=dev <dg-name>-<project-id>-reference
 ```
 
 For local development, to test the Setup Wizard, run `composer setup` from the root of this project.
 
-This will download the starterkit into the `my-openeuropa-site` folder and a
+This will download the starterkit into the `<dg-name>-<project-id>-reference` folder and a
 wizard will ask you for the project name and your organisation. It will use this
 information to personalize your project's configuration files.
 
@@ -43,6 +43,21 @@ The installer will then download all dependencies for the project. This process
 takes several minutes. At the end you will be asked whether to remove the
 existing version history. It is recommended to confirm this question so that you
 can start your project with a clean slate.
+
+After installing the dependencies, install a clean installation of your site, using the following command:
+
+```bash
+./vendor/bin/run toolkit:install-clean
+```
+
+Using default configuration, the development site files should be available in the `build` directory.
+
+Before to commit your project on your repository, export the configuration on `config/sync`
+using the following command:.
+
+```bash
+./vendor/bin/drush cex
+```
 
 ## Drone
 

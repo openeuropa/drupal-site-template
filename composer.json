@@ -22,7 +22,6 @@
         "drupal/console": "~1.6",
         "drupal/drupal-extension": "~4.0",
         "ec-europa/toolkit": "dev-release/4.x",
-        "openeuropa/task-runner": "^1.0.0-beta5",
         "webflo/drupal-core-require-dev": "~8.6"
     },
     "scripts": {
