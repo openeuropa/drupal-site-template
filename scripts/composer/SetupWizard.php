@@ -199,7 +199,7 @@ class SetupWizard {
     unlink('scripts/composer/SetupWizard.php');
     rmdir('scripts/composer');
     rmdir('scripts');
-    $event->getIO()->write("Setup wizard file cleaned.");
+    $event->getIO()->write('Setup wizard file cleaned.');
   }
 
 }
