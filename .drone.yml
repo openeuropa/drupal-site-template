@@ -4,9 +4,18 @@ workspace:
 
 services:
   web:
-    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
-    environment:
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    environment: &env
       - DOCUMENT_ROOT=/test/drupal-site-template
+      - DRUPAL_DATABASE_NAME=digit_drupal_site_test_reference
+      - DRUPAL_DATABASE_USERNAME=root
+      - DRUPAL_DATABASE_PASSWORD=
+      - DRUPAL_DATABASE_PREFIX=
+      - DRUPAL_DATABASE_HOST=mysql
+      - DRUPAL_DATABASE_PORT=3306
+      - DRUPAL_ACCOUNT_USERNAME=admin
+      - DRUPAL_ACCOUNT_PASSWORD=admin
+      - DRUPAL_BASE_URL=http://web:8080/digit-drupal-site-test-reference/web
   mysql:
     image: percona/percona-server:5.6
     environment:
@@ -21,7 +30,8 @@ pipeline:
   # Remove the cache for internal use.
   clean-repo:
     group: init
-    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    environment: *env
     volumes:
       - /cache:/cache
     commands:
@@ -32,10 +42,9 @@ pipeline:
 
   # Create project command.
   composer-create-project:
-    group: pre-prepare
-    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
-    environment:
-      - DRUPAL_BASE_URL=http://web:8080/digit-drupal-site-test-reference/web
+    group: create-project
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    environment: *env
     volumes:
       - /cache:/cache
     commands:
@@ -43,33 +52,44 @@ pipeline:
 
   # Initialize git.
   git-init:
-    image: fpfis/httpd-php-full:7.1
+    group: git-init
+    image: fpfis/httpd-php-ci:7.1
+    environment: *env
     commands:
       - cd digit-drupal-site-test-reference
       - git init
 
   # Install the drupal site.
   site-install:
-    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
-    environment:
-      - DRUPAL_DATABASE_NAME=openeuropa_site
-      - DRUPAL_DATABASE_USERNAME=root
-      - DRUPAL_DATABASE_PASSWORD=
-      - DRUPAL_DATABASE_PREFIX=
-      - DRUPAL_DATABASE_HOST=mysql
-      - DRUPAL_DATABASE_PORT=3306
-      - DRUPAL_ACCOUNT_USERNAME=admin
-      - DRUPAL_ACCOUNT_PASSWORD=admin
-      - DRUPAL_BASE_URL=http://web:8080/digit-drupal-site-test-reference/web
+    group: installation-site
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    environment: *env
     commands:
       - cd digit-drupal-site-test-reference
       - ./vendor/bin/run toolkit:install-clean
+
+  # Export of the configuration.
+  export-config:
+    group: export-config
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    environment: *env
+    commands:
+      - cd digit-drupal-site-test-reference
       - ./vendor/bin/drush cex -y
+
+  # Resolve user permission after installation.
+  permission-user:
+    group: resolve-permission
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    environment: *env
+    commands:
+      - chown -R www-data:www-data /test/drupal-site-template/digit-drupal-site-test-reference/*
 
   # Run grumphp tests.
   test-grumphp:
     group: test
-    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    environment: *env
     commands:
       - cd digit-drupal-site-test-reference
       - ./vendor/bin/grumphp run
@@ -77,10 +97,10 @@ pipeline:
   # Run behat tests.
   test-behat:
     group: test
-    image: fpfis/httpd-php-full:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    environment: *env
     commands:
       - cd digit-drupal-site-test-reference
-      - ./vendor/bin/run toolkit:disable-drupal-cache
       - ./vendor/bin/behat --strict
 
 matrix:

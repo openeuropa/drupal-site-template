@@ -114,11 +114,19 @@ class SetupWizard {
    *   The array of parameters.
    */
   private static function updateRunnerFile(array $params): void {
-    $file = file_get_contents('runner.yml.dist');
-    $file = preg_replace('/My OpenEuropa site/', trim($params['project_name']), $file);
-    $file = preg_replace('/openeuropa_site/', $params['machine_name'], $file);
+    $filenames = [
+      'runner.yml.dist',
+      '.env',
+    ];
 
-    file_put_contents('runner.yml.dist', $file);
+    foreach ($filenames as $filename) {
+      $file = file_get_contents($filename);
+
+      $file = preg_replace('/My OpenEuropa site/', trim($params['project_name']), $file);
+      $file = preg_replace('/openeuropa_site/', $params['machine_name'], $file);
+
+      file_put_contents($filename, $file);
+    }
   }
 
   /**
@@ -191,7 +199,7 @@ class SetupWizard {
     unlink('scripts/composer/SetupWizard.php');
     rmdir('scripts/composer');
     rmdir('scripts');
-    $event->getIO()->write("Setup wizard file cleaned.");
+    $event->getIO()->write('Setup wizard file cleaned.');
   }
 
 }
