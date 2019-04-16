@@ -101,7 +101,6 @@ pipeline:
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
-      - ./vendor/bin/run toolkit:disable-drupal-cache
       - ./vendor/bin/behat --strict
 
 matrix:
