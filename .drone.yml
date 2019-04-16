@@ -65,7 +65,7 @@ pipeline:
       - cd digit-drupal-site-test-reference
       - ./vendor/bin/run toolkit:install-clean
 
-  # Install the drupal site.
+  # Export of the configuration.
   export-config:
     group: export-config
     image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
@@ -74,7 +74,7 @@ pipeline:
       - cd digit-drupal-site-test-reference
       - ./vendor/bin/drush cex -y
 
-  # Install the drupal site.
+  # Resolve user permission after installation.
   permission-user:
     group: resolve-permission
     image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
