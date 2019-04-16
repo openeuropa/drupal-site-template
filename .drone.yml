@@ -7,7 +7,7 @@ services:
     image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
     environment: &env
       - DOCUMENT_ROOT=/test/drupal-site-template
-      - DRUPAL_DATABASE_NAME=openeuropa_site
+      - DRUPAL_DATABASE_NAME=digit_drupal_site_test_reference
       - DRUPAL_DATABASE_USERNAME=root
       - DRUPAL_DATABASE_PASSWORD=
       - DRUPAL_DATABASE_PREFIX=
