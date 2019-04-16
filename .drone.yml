@@ -36,6 +36,9 @@ pipeline:
       - /cache:/cache
     commands:
       - rm -rf /cache/composer/vcs/-test-drupal-site-template
+    when:
+      matrix:
+        PHP_VERSION: 7.1
 
   # Create project command.
   composer-create-project:
