@@ -77,7 +77,7 @@ pipeline:
   # Run behat tests.
   test-behat:
     group: test
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.1}
+    image: fpfis/httpd-php-dev:${PHP_VERSION=7.1}
     commands:
       - cd digit-drupal-site-test-reference
       - ./vendor/bin/run toolkit:disable-drupal-cache
