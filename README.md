@@ -79,10 +79,3 @@ Further details of how to build sites, install Drupal and run tests can be found
  folder. 
 
 Now you are ready to push your project to your chosen code hosting service.
-
-## Patches list
-
-When building sites with [OpenEuropa Multilingual](https://github.com/openeuropa/oe_multilingual) the following core patch may be useful. 
-
-- [Patch](https://www.drupal.org/files/issues/2018-10-01/2599228-SQL_error_on_content_creation-78_0.patch) for issue [#2599228](https://www.drupal.org/project/drupal/issues/2599228) -
-Programmatically created translatable content type returns SQL error on content creation.
