@@ -13,7 +13,7 @@
         "drupal/core": "^8.7",
         "drush/drush": "^9.0",
         "openeuropa/composer-artifacts": "~0.1",
-        "openeuropa/oe_profile": "^0.2",
+        "openeuropa/oe_profile": "^0.3",
         "openeuropa/oe_theme": "^1.0",
         "webflo/drupal-finder": "^1.0",
         "webmozart/path-util": "^2.3"
