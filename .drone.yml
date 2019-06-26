@@ -35,6 +35,7 @@ pipeline:
     volumes:
       - /cache:/cache
     commands:
+      - ls /cache/composer/vcs
       - rm -rf /cache/composer/vcs/-test-drupal-site-template
     when:
       matrix:
