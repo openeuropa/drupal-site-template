@@ -59,6 +59,9 @@
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"]
+        },
+        "grumphp": {
+            "config-default-path": "vendor/ec-europa/qa-automation/dist/qa-conventions.yml"
         }
     },
     "autoload": {
