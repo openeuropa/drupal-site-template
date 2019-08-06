@@ -10,6 +10,8 @@ use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Setup wizard to handle user input during initial composer installation.
+ *
+ * @phpcs:ignorefile Generic.PHP.ForbiddenFunctions
  */
 class SetupWizard {
 
