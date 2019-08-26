@@ -26,7 +26,7 @@
         "webflo/drupal-core-require-dev": "~8.7"
     },
     "_readme": [
-        "We explicitly require symfony/browser-kit: ~4.0 since composer update --prefer-lowest will downgrade to ~3.0 breaking our Behat tests."
+        "We explicitly require symfony/browser-kit: ~4.0 otherwise composer update will downgrade to ~3.0 breaking our Behat tests."
     ],
     "scripts": {
         "post-root-package-install": [
