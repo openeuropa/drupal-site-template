@@ -22,8 +22,12 @@
         "drupal/console": "~1.6",
         "drupal/drupal-extension": "~4.0",
         "ec-europa/toolkit": "~4.0.0-beta7",
+        "symfony/browser-kit": "~4.0",
         "webflo/drupal-core-require-dev": "~8.7"
     },
+    "_readme": [
+        "We explicitly require symfony/browser-kit: ~4.0 otherwise composer update will downgrade to ~3.0 breaking our Behat tests."
+    ],
     "scripts": {
         "post-root-package-install": [
             "DrupalSiteTemplate\\composer\\SetupWizard::setup"
