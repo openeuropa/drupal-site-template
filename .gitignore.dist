@@ -12,6 +12,7 @@
 /config/sync/.htaccess
 
 # Ignore local configuration files.
+/.env.local
 /behat.yml
 /grumphp.yml
 /runner.yml

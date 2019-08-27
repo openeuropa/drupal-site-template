@@ -28,6 +28,8 @@ these, you can skip directly to step 3.
 If you want to run the website using your locally installed LAMP stack, you
 will want to change the configuration to match your local system.
 
+You can override one or several environment variables provided in `.env` by creating a new file `.env.local`.
+
 Customize the default configuration values by copying `runner.yml.dist` to
 `runner.yml`:
 
