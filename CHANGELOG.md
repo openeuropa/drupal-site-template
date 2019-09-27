@@ -1,5 +1,14 @@
 # Change Log
 
+## [1.1.0](https://github.com/openeuropa/drupal-site-template/tree/1.1.0) (2019-09-27)
+[Full Changelog](https://github.com/openeuropa/drupal-site-template/compare/1.0.0...1.1.0)
+
+**Merged pull requests:**
+
+- OPENEUROPA-0000: Update README documentation. [\#47](https://github.com/openeuropa/drupal-site-template/pull/47) ([brummbar](https://github.com/brummbar))
+- OPENEUROPA-2186: Put minimum version for symfony/browser-kit to ~4.0. [\#45](https://github.com/openeuropa/drupal-site-template/pull/45) ([voidtek](https://github.com/voidtek))
+- OPENEUROPA-2185: Update ec-europa/toolkit to beta7. [\#44](https://github.com/openeuropa/drupal-site-template/pull/44) ([voidtek](https://github.com/voidtek))
+
 ## [1.0.0](https://github.com/openeuropa/drupal-site-template/tree/1.0.0) (2019-08-06)
 [Full Changelog](https://github.com/openeuropa/drupal-site-template/compare/0.1.0...1.0.0)
 
@@ -10,6 +19,7 @@
 
 **Merged pull requests:**
 
+- OPENEUROPA-1766: Update Changelog and create release 1.0.0. [\#43](https://github.com/openeuropa/drupal-site-template/pull/43) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-1766: Update ec-europa/toolkit to ~4.0.0-beta4. [\#41](https://github.com/openeuropa/drupal-site-template/pull/41) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-1897: Remove permission related steps from drone. [\#38](https://github.com/openeuropa/drupal-site-template/pull/38) ([dxvargas](https://github.com/dxvargas))
 - Update oe\_profile version to ^0.3. [\#35](https://github.com/openeuropa/drupal-site-template/pull/35) ([ademarco](https://github.com/ademarco))
@@ -24,7 +34,12 @@
 - OPENEUROPA-1628: Fix issue with .env. [\#25](https://github.com/openeuropa/drupal-site-template/pull/25) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-1628 [\#24](https://github.com/openeuropa/drupal-site-template/pull/24) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-1741: Update runner.yml.dist to use new Toolkit build commands [\#23](https://github.com/openeuropa/drupal-site-template/pull/23) ([ademarco](https://github.com/ademarco))
+- OPENEUROPA-1715: Change drone file to use create-project. [\#21](https://github.com/openeuropa/drupal-site-template/pull/21) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-1697: Add extra steps to runner. [\#20](https://github.com/openeuropa/drupal-site-template/pull/20) ([imanoleguskiza](https://github.com/imanoleguskiza))
+- OPENEUROPA-1701: Change the structure of the build. [\#19](https://github.com/openeuropa/drupal-site-template/pull/19) ([voidtek](https://github.com/voidtek))
+- OPENEUROPA-1628: Add on Drone the php v7.2 with the matrix. [\#18](https://github.com/openeuropa/drupal-site-template/pull/18) ([voidtek](https://github.com/voidtek))
+- OPENEUROPA-1700: Removing drone file for the final site. [\#17](https://github.com/openeuropa/drupal-site-template/pull/17) ([voidtek](https://github.com/voidtek))
+- Include some required props in runner template. [\#16](https://github.com/openeuropa/drupal-site-template/pull/16) ([jonhy81](https://github.com/jonhy81))
 - OPENEUROPA-1628: Install ec-europa/toolkit. [\#15](https://github.com/openeuropa/drupal-site-template/pull/15) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-1609: Add ajax\_timeout setting for behat. [\#13](https://github.com/openeuropa/drupal-site-template/pull/13) ([nagyad](https://github.com/nagyad))
 - OPENEUROPA-1609 Fix behat.yml.dist to use drupal-extension properly. [\#12](https://github.com/openeuropa/drupal-site-template/pull/12) ([nagyad](https://github.com/nagyad))
