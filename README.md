@@ -3,7 +3,7 @@
 [![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/drupal-site-template/status.svg?branch=master)](https://drone.fpfis.eu/openeuropa/drupal-site-template)
 
 **Please note:** this repository contains code that is necessary to generate
-a new Drupal 8 project, please read carefully the **Start a new project**
+a new Drupal 8 project, please read carefully the [Start a new project](#start-a-new-project)
 section below before proceeding.
 
 You need to have the following software installed on your local development environment:
@@ -29,28 +29,8 @@ takes several minutes. At the end you will be asked whether to remove the
 existing version history. It is recommended to confirm this question so that you
 can start your project with a clean slate.
 
-Now enter into the newly created site folder and start the Docker containers:
-
-```bash
-cd "<dg-name>-<project-id>-reference"
-docker-compose up -d
-```
-
-After all the containers have started (the time required can vary based on the host machine),
-perform a clean installation of your site, using the following command:
-
-```bash
-docker-compose exec web ./vendor/bin/run toolkit:install-clean
-```
-
-Using default configuration, the development site files should be available in the `web` directory.
-
-Before to commit your project on your repository, export the configuration on `config/sync`
-using the following command:.
-
-```bash
-docker-compose exec web ./vendor/bin/drush cex
-```
+The following steps to get your new site up and running can be found in the
+README inside your newly created project folder.
 
 ## Drone
 

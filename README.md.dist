@@ -76,18 +76,11 @@ docker-compose exec web ./vendor/bin/run toolkit:install-clean
 The site build will be available in the `web` directory and the site itself
 will be reachable at: [http://localhost:8080/web](http://localhost:8080/web).
 
-## Running the tests
-
-To run the coding standards and other static checks:
-
-```bash
-docker-compose exec web ./vendor/bin/grumphp run
-```
-
-To run Behat tests:
+Before to commit your project on your repository, export the configuration on `config/sync`
+using the following command:
 
 ```bash
-docker-compose exec web ./vendor/bin/behat
+docker-compose exec web ./vendor/bin/drush cex
 ```
 
 ## Commit and push
@@ -105,6 +98,20 @@ git commit -m "Initial commit."
 ```
 
 Now you are ready to push your project to your chosen code hosting service.
+
+## Running the tests
+
+To run the coding standards and other static checks:
+
+```bash
+docker-compose exec web ./vendor/bin/grumphp run
+```
+
+To run Behat tests:
+
+```bash
+docker-compose exec web ./vendor/bin/behat
+```
 
 ## Continuous integration and deployment
 
