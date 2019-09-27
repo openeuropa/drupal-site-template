@@ -1,20 +1,10 @@
-# OpenEuropa template for Drupal projects
-
-This is based on [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project).
+# OpenEuropa template for Drupal 8 projects
 
 [![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/drupal-site-template/status.svg?branch=master)](https://drone.fpfis.eu/openeuropa/drupal-site-template)
 
-This project template provides a starter kit for creating a website using the
-OpenEuropa Drupal 8 platform. It will install the [OpenEuropa Profile](https://github.com/openeuropa/oe_profile)
-which is a lightweight installation profile that includes the minimal number
-of modules that are required to enable the [OpenEuropa Theme](https://github.com/openeuropa/oe_theme).
-Using this theme will ensure that the project complies with the guidelines for
-[European Component Library](https://github.com/ec-europa/europa-component-library).
-
-In order to build the functionality of the website you are free to use any of the
-[OpenEuropa components](https://github.com/openeuropa/openeuropa/blob/master/docs/openeuropa-components.md).
-
-## Prerequisites
+**Please note:** this repository contains code that is necessary to generate
+a new Drupal 8 project, please read carefully the **Start a new project**
+section below before proceeding.
 
 You need to have the following software installed on your local development environment:
 
@@ -22,11 +12,9 @@ You need to have the following software installed on your local development envi
 * [Docker Compose](https://docs.docker.com/compose/install/)
 * PHP 7.1 or greater (only needed during project creation)
 
-## Create the project
+## Start a new project
 
-The project is built using [Composer create-project](https://getcomposer.org/doc/03-cli.md#create-project).
-
-A new project can be created using the following command:
+To create a new Drupal 8 project run the following command:
 
 ```bash
 composer create-project openeuropa/drupal-site-template --stability=dev <dg-name>-<project-id>-reference
