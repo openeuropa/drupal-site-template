@@ -9,6 +9,9 @@ drupal:
     name: ${env.DRUPAL_ACCOUNT_USERNAME}
     password: ${env.DRUPAL_ACCOUNT_PASSWORD}
 
+behat:
+  tags: "~@clone"
+
 selenium:
   host: "http://selenium"
   port: "4444"

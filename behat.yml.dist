@@ -9,6 +9,8 @@ default:
         - Drupal\DrupalExtension\Context\MinkContext
         - OpenEuropa\Site\Tests\Behat\DrupalContext
         - OpenEuropa\Site\Tests\Behat\FeatureContext
+      filters:
+        tags: "${behat.tags}"
   extensions:
     Drupal\MinkExtension:
       goutte: ~
