@@ -32,10 +32,10 @@ default:
         corporate top footer: ".ecl-footer__corporate-top"
         corporate bottom footer: ".ecl-footer__corporate-bottom"
       selectors:
-        message_selector: '.ecl-message'
-        error_message_selector: '.ecl-message--error'
-        success_message_selector: '.ecl-message--success'
-        warning_message_selector: '.ecl-message--warning'
+        message_selector: '.ecl-message,.messages'
+        error_message_selector: '.ecl-message--error,.messages--error'
+        success_message_selector: '.ecl-message--success,.messages--status'
+        warning_message_selector: '.ecl-message--warning,.messages--warning'
         login_form_selector: '#user-login-form'
       text:
         log_in: 'Log in'
