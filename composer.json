@@ -13,21 +13,16 @@
         "drupal/core": "^8.7",
         "drush/drush": "^9.0",
         "openeuropa/composer-artifacts": "~0.1",
-        "openeuropa/oe_profile": "^0.3",
-        "openeuropa/oe_theme": "^1.0",
+        "openeuropa/oe_profile": "^0.4",
+        "openeuropa/oe_theme": "^2.0",
         "webflo/drupal-finder": "^1.0",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
-        "drupal/console": "~1.6",
         "drupal/drupal-extension": "~4.0",
         "ec-europa/toolkit": "~4.0.0-beta7",
-        "symfony/browser-kit": "~4.0",
-        "webflo/drupal-core-require-dev": "~8.7"
+        "drupal/core-dev": "^8.7"
     },
-    "_readme": [
-        "We explicitly require symfony/browser-kit: ~4.0 otherwise composer update will downgrade to ~3.0 breaking our Behat tests."
-    ],
     "scripts": {
         "post-root-package-install": [
             "DrupalSiteTemplate\\composer\\SetupWizard::setup"
@@ -63,9 +58,6 @@
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"]
-        },
-        "grumphp": {
-            "config-default-path": "vendor/ec-europa/qa-automation/dist/qa-conventions.yml"
         }
     },
     "autoload": {

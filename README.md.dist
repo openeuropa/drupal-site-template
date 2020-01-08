@@ -20,14 +20,27 @@ In order to build the functionality of the website you are free to use any of th
 You need to have the following software installed on your local development environment:
 
 * [Docker Compose](https://docs.docker.com/compose/install/)
+* PHP 7.1 or greater (needed to run [GrumPHP](https://github.com/phpro/grumphp) Git hooks)
 
 Having the following installed locally is also recommended, but not mandatory:
 
-* PHP 7.1 or greater
 * [Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
 
 **Please be aware:** the OpenEuropa team will only address support requests
 if you use the provided `docker-compose.yml`.
+
+## Troubleshooting
+
+If you run `composer install` for the first time from within the Docker container GrumPHP
+will set its Git hook paths to the container's ones.
+
+If you get such error messages reinitialize GrumPHP paths on your host machine
+(meaning, outside the container) by running:
+
+```bash
+./vendor/bin/grumphp git:deinit
+./vendor/bin/grumphp git:init
+```
 
 ## Configuration
 
