@@ -1,10 +1,21 @@
 # Change Log
 
+## [1.2.0](https://github.com/openeuropa/drupal-site-template/tree/1.2.0) (2020-01-08)
+[Full Changelog](https://github.com/openeuropa/drupal-site-template/compare/1.1.0...1.2.0)
+
+**Merged pull requests:**
+
+- MULTISITE-22187: Run behat by default by excluding @wip tags. [\#54](https://github.com/openeuropa/drupal-site-template/pull/54) ([verbruggenalex](https://github.com/verbruggenalex))
+- MULTISITE-22513: Update dependencies and fix QA requirements [\#53](https://github.com/openeuropa/drupal-site-template/pull/53) ([verbruggenalex](https://github.com/verbruggenalex))
+- OPENEUROPA-2464: Use PHP 7.1 in docker-compose. [\#50](https://github.com/openeuropa/drupal-site-template/pull/50) ([dxvargas](https://github.com/dxvargas))
+- OPENEUROPA-2258: Use PHP 7.2 by default in drone and docker image. [\#46](https://github.com/openeuropa/drupal-site-template/pull/46) ([dxvargas](https://github.com/dxvargas))
+
 ## [1.1.0](https://github.com/openeuropa/drupal-site-template/tree/1.1.0) (2019-09-27)
 [Full Changelog](https://github.com/openeuropa/drupal-site-template/compare/1.0.0...1.1.0)
 
 **Merged pull requests:**
 
+- Update CHANGELOG.md for release 1.1.0. [\#48](https://github.com/openeuropa/drupal-site-template/pull/48) ([ademarco](https://github.com/ademarco))
 - OPENEUROPA-0000: Update README documentation. [\#47](https://github.com/openeuropa/drupal-site-template/pull/47) ([brummbar](https://github.com/brummbar))
 - OPENEUROPA-2186: Put minimum version for symfony/browser-kit to ~4.0. [\#45](https://github.com/openeuropa/drupal-site-template/pull/45) ([voidtek](https://github.com/voidtek))
 - OPENEUROPA-2185: Update ec-europa/toolkit to beta7. [\#44](https://github.com/openeuropa/drupal-site-template/pull/44) ([voidtek](https://github.com/voidtek))
