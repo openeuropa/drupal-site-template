@@ -10,7 +10,7 @@ drupal:
     password: ${env.DRUPAL_ACCOUNT_PASSWORD}
 
 behat:
-  tags: "~@clone"
+  tags: "~@wip"
 
 selenium:
   host: "http://selenium"
