@@ -2,13 +2,14 @@ version: '2'
 services:
   web:
     image: fpfis/httpd-php-dev:7.1
-    working_dir: /var/www/html
+    working_dir: ${PWD}
     ports:
       - 8080:8080
     volumes:
-      - .:/var/www/html # Non Mac users.
+      - ${PWD}:${PWD} # Non Mac users.
       # - nfsmount:/var/www/html # Mac Users with the nfsmount volume.
     environment:
+      DOCUMENT_ROOT: ${PWD}
       # ASDA CREDENTIALS
       # By leaving these variables empty Docker Compose will set them to their host values.
       ASDA_USER:
