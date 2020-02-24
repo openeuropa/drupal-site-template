@@ -4,7 +4,7 @@ workspace:
 
 services:
   web:
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.3}
     environment: &env
       - DOCUMENT_ROOT=/test/drupal-site-template
       - DRUPAL_DATABASE_NAME=digit_drupal_site_test_reference
@@ -30,7 +30,7 @@ pipeline:
   # Remove the cache for internal use.
   clean-repo:
     group: init
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.3}
     environment: *env
     volumes:
       - /cache:/cache
@@ -43,7 +43,7 @@ pipeline:
   # Create project command.
   composer-create-project:
     group: create-project
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.3}
     environment: *env
     volumes:
       - /cache:/cache
@@ -62,7 +62,7 @@ pipeline:
   # Install the drupal site.
   site-install:
     group: installation-site
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.3}
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
@@ -71,7 +71,7 @@ pipeline:
   # Export of the configuration.
   export-config:
     group: export-config
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.3}
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
@@ -80,7 +80,7 @@ pipeline:
   # Run grumphp tests.
   test-grumphp:
     group: test
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.3}
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
@@ -89,7 +89,7 @@ pipeline:
   # Run behat tests.
   test-behat:
     group: test
-    image: fpfis/httpd-php-ci:${PHP_VERSION=7.2}
+    image: fpfis/httpd-php-ci:${PHP_VERSION=7.3}
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
@@ -99,3 +99,4 @@ matrix:
   PHP_VERSION:
     - 7.1
     - 7.2
+    - 7.3
