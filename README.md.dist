@@ -20,7 +20,7 @@ In order to build the functionality of the website you are free to use any of th
 You need to have the following software installed on your local development environment:
 
 * [Docker Compose](https://docs.docker.com/compose/install/)
-* PHP 7.1 or greater (needed to run [GrumPHP](https://github.com/phpro/grumphp) Git hooks)
+* PHP 7.2 or greater (needed to run [GrumPHP](https://github.com/phpro/grumphp) Git hooks)
 
 Having the following installed locally is also recommended, but not mandatory:
 

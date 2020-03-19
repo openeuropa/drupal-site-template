@@ -38,7 +38,7 @@ pipeline:
       - rm -rf /cache/composer/vcs/-test-drupal-site-template
     when:
       matrix:
-        PHP_VERSION: 7.1
+        PHP_VERSION: 7.2
 
   # Create project command.
   composer-create-project:
@@ -53,7 +53,7 @@ pipeline:
   # Initialize git.
   git-init:
     group: git-init
-    image: fpfis/httpd-php-ci:7.1
+    image: fpfis/httpd-php-ci:${PHP_VERSION}
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
