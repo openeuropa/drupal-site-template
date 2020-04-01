@@ -29,7 +29,7 @@ https://github.com/ec-europa/<dg-name>-<project-id>-reference
 Then generate your new Drupal 8 project codebase by running the following command:
 
 ```bash
-docker run --rm -ti -v $PWD:/var/www/html -w /var/www/html fpfis/httpd-php-dev:7.3 composer create-project openeuropa/drupal-site-template --stability=dev <dg-name>-<project-id>-reference
+docker run --rm -ti -v $PWD:/var/www/html -w /var/www/html fpfis/httpd-php-dev:7.3 composer create-project openeuropa/drupal-site-template --stability=dev --remove-vcs <dg-name>-<project-id>-reference
 ```
 
 This will download this starterkit into the `<dg-name>-<project-id>-reference` folder and a
