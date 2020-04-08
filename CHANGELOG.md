@@ -1,10 +1,24 @@
 # Change Log
 
+## [1.3.0](https://github.com/openeuropa/drupal-site-template/tree/1.3.0) (2020-04-08)
+[Full Changelog](https://github.com/openeuropa/drupal-site-template/compare/1.2.0...1.3.0)
+
+**Closed issues:**
+
+- "Failed to drop or create the database" [\#59](https://github.com/openeuropa/drupal-site-template/issues/59)
+
+**Merged pull requests:**
+
+- OPENEUROPA-2869: Update readme. [\#68](https://github.com/openeuropa/drupal-site-template/pull/68) ([22Alexandra](https://github.com/22Alexandra))
+- OPENEUROPA-2943: Update composer.json. [\#67](https://github.com/openeuropa/drupal-site-template/pull/67) ([sergepavle](https://github.com/sergepavle))
+- OPENEUROPA-2938: PHP 7.3. - Update Drupal Site Template component. [\#66](https://github.com/openeuropa/drupal-site-template/pull/66) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.2.0](https://github.com/openeuropa/drupal-site-template/tree/1.2.0) (2020-01-08)
 [Full Changelog](https://github.com/openeuropa/drupal-site-template/compare/1.1.0...1.2.0)
 
 **Merged pull requests:**
 
+- Update CHANGELOG.md for release 1.2.0. [\#55](https://github.com/openeuropa/drupal-site-template/pull/55) ([ademarco](https://github.com/ademarco))
 - MULTISITE-22187: Run behat by default by excluding @wip tags. [\#54](https://github.com/openeuropa/drupal-site-template/pull/54) ([verbruggenalex](https://github.com/verbruggenalex))
 - MULTISITE-22513: Update dependencies and fix QA requirements [\#53](https://github.com/openeuropa/drupal-site-template/pull/53) ([verbruggenalex](https://github.com/verbruggenalex))
 - OPENEUROPA-2464: Use PHP 7.1 in docker-compose. [\#50](https://github.com/openeuropa/drupal-site-template/pull/50) ([dxvargas](https://github.com/dxvargas))
