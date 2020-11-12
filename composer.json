@@ -9,8 +9,8 @@
         "php": ">=7.2",
         "composer/installers": "^1.5",
         "cweagans/composer-patches": "^1.0",
-        "drupal-composer/drupal-scaffold": "^2.5",
         "drupal/core": "^8.7",
+        "drupal/core-composer-scaffold": "^8.8",
         "drush/drush": "^9.0",
         "openeuropa/composer-artifacts": "~0.1",
         "openeuropa/oe_profile": "^0.4",
@@ -52,6 +52,11 @@
         },
         "composer-exit-on-patch-failure": true,
         "enable-patching": true,
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "./web"
+            }
+        },
         "installer-paths": {
             "web/core": ["type:drupal-core"],
             "web/libraries/{$name}": ["type:drupal-library"],
