@@ -4,7 +4,7 @@ workspace:
 
 services:
   web:
-    image: fpfis/httpd-php-ci:${PHP_VERSION}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment: &env
       - DOCUMENT_ROOT=/test/drupal-site-template
       - DRUPAL_DATABASE_NAME=digit_drupal_site_test_reference
@@ -17,11 +17,12 @@ services:
       - DRUPAL_ACCOUNT_PASSWORD=admin
       - DRUPAL_BASE_URL=http://web:8080/digit-drupal-site-test-reference/web
   mysql:
-    image: percona/percona-server:5.6
+    image: registry.fpfis.eu/fpfis/sql:percona-5.7
+    command: --innodb-log-file-size=1G --max_allowed_packet=1G --innodb-buffer-pool-size=512M --wait_timeout=3000 --net_write_timeout=3000 --log_error_verbosity=3
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
   selenium:
-    image: selenium/standalone-chrome:3.11
+    image: registry.fpfis.eu/fpfis/selenium:standalone-chrome-3.11
     environment:
       - DISPLAY=:99
       - SE_OPTS=-debug
@@ -30,7 +31,7 @@ pipeline:
   # Remove the cache for internal use.
   clean-repo:
     group: init
-    image: fpfis/httpd-php-ci:${PHP_VERSION}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment: *env
     volumes:
       - /cache:/cache
@@ -43,7 +44,7 @@ pipeline:
   # Create project command.
   composer-create-project:
     group: create-project
-    image: fpfis/httpd-php-ci:${PHP_VERSION}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment: *env
     volumes:
       - /cache:/cache
@@ -53,7 +54,7 @@ pipeline:
   # Initialize git.
   git-init:
     group: git-init
-    image: fpfis/httpd-php-ci:${PHP_VERSION}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
@@ -62,7 +63,7 @@ pipeline:
   # Install the drupal site.
   site-install:
     group: installation-site
-    image: fpfis/httpd-php-ci:${PHP_VERSION}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
@@ -71,7 +72,7 @@ pipeline:
   # Export of the configuration.
   export-config:
     group: export-config
-    image: fpfis/httpd-php-ci:${PHP_VERSION}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
@@ -80,7 +81,7 @@ pipeline:
   # Run grumphp tests.
   test-grumphp:
     group: test
-    image: fpfis/httpd-php-ci:${PHP_VERSION}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
@@ -89,7 +90,7 @@ pipeline:
   # Run behat tests.
   test-behat:
     group: test
-    image: fpfis/httpd-php-ci:${PHP_VERSION}
+    image: registry.fpfis.eu/fpfis/httpd-php:${PHP_VERSION}-ci
     environment: *env
     commands:
       - cd digit-drupal-site-test-reference
