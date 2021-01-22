@@ -1,5 +1,17 @@
 # Change Log
 
+## [1.4.0](https://github.com/openeuropa/drupal-site-template/tree/1.4.0) (2021-01-22)
+[Full Changelog](https://github.com/openeuropa/drupal-site-template/compare/1.3.0...1.4.0)
+
+**Closed issues:**
+
+- Make this GitHub repository a Template [\#64](https://github.com/openeuropa/drupal-site-template/issues/64)
+
+**Merged pull requests:**
+
+- EWPP-516: Update docker images. [\#72](https://github.com/openeuropa/drupal-site-template/pull/72) ([22Alexandra](https://github.com/22Alexandra))
+- EWPP-478: Update drupal scaffold library. [\#71](https://github.com/openeuropa/drupal-site-template/pull/71) ([sergepavle](https://github.com/sergepavle))
+
 ## [1.3.0](https://github.com/openeuropa/drupal-site-template/tree/1.3.0) (2020-04-08)
 [Full Changelog](https://github.com/openeuropa/drupal-site-template/compare/1.2.0...1.3.0)
 
