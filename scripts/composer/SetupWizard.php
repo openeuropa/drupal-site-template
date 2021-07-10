@@ -7,6 +7,7 @@ namespace DrupalSiteTemplate\composer;
 use Composer\Json\JsonFile;
 use Composer\Script\Event;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Setup wizard to handle user input during initial composer installation.
@@ -14,6 +15,13 @@ use Symfony\Component\Filesystem\Filesystem;
  * @phpcs:ignorefile Generic.PHP.ForbiddenFunctions
  */
 class SetupWizard {
+
+  /**
+   * The original namespace used in this project.
+   *
+   * @var string
+   */
+  const ORIGINAL_NAMESPACE = 'OpenEuropa\Site';
 
   /**
    * The setup wizard.
@@ -49,12 +57,13 @@ class SetupWizard {
     $params['machine_name'] = $event->getIO()->ask('<info>What is the (machine readable) project name?</info> [<comment>' . $params['machine_name'] . '</comment>]? ', $params['machine_name']);
     $params['package_name'] = $event->getIO()->ask('<info>What is the package name?</info> [<comment>' . $params['package_name'] . '</comment>]? ', $params['package_name']);
 
+    $params['namespace'] = $params['camelcased_organization_name'] . '\\' . ucwords($params['machine_name']);
+    $params['namespace'] = $event->getIO()->ask('<info>What is the project namespace?</info> [<comment>' . $params['namespace'] . '</comment>]? ', $params['namespace']);
+
     $params['description'] = $event->getIO()->ask('<info>Provide a description</info> [<comment>' . $params['description'] . '</comment>]? ', $params['description']);
 
-    // Define the namespace for the project.
-    $params['namespace'] = $params['camelcased_organization_name'] . '\\' . $params['machine_name'] . '\\';
-
     self::updateConfig($composer_filename, $params);
+    self::updateBehatFiles($params);
     self::updateRunnerFile($params);
     self::cleanFile();
     self::createLibDir();
@@ -83,30 +92,66 @@ class SetupWizard {
     $config['description'] = $params['description'];
 
     // Remove the configuration related to the setup wizard.
-    $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], ['scripts/composer/SetupWizard.php', 'scripts/composer/CheckSetupWizard.php']);
-    if (empty($config['autoload']['classmap'])) {
-      unset($config['autoload']['classmap']);
+    if (!empty($config['autoload']['classmap'])) {
+      $config['autoload']['classmap'] = array_diff($config['autoload']['classmap'], [
+        'scripts/composer/SetupWizard.php',
+        'scripts/composer/CheckSetupWizard.php',
+      ]);
     }
 
-    if (empty($config['autoload'])) {
-      unset($config['autoload']);
+    if (!empty($config['scripts']['post-create-project-cmd'])) {
+      $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], [
+        'DrupalSiteTemplate\\composer\\CheckSetupWizard::check',
+        'DrupalSiteTemplate\\composer\\SetupWizard::cleanup',
+      ]);
     }
 
-    $config['scripts']['post-create-project-cmd'] = array_diff($config['scripts']['post-create-project-cmd'], ['DrupalSiteTemplate\\composer\\CheckSetupWizard::check', 'DrupalSiteTemplate\\composer\\SetupWizard::cleanup']);
-    if (empty($config['scripts']['post-create-project-cmd'])) {
-      unset($config['scripts']['post-create-project-cmd']);
+    if (!empty($config['scripts']['post-root-package-install'])) {
+      $config['scripts']['post-root-package-install'] = array_diff($config['scripts']['post-root-package-install'], ['DrupalSiteTemplate\\composer\\SetupWizard::setup']);
     }
 
-    $config['scripts']['post-root-package-install'] = array_diff($config['scripts']['post-root-package-install'], ['DrupalSiteTemplate\\composer\\SetupWizard::setup']);
-    if (empty($config['scripts']['post-root-package-install'])) {
-      unset($config['scripts']['post-root-package-install']);
+    // Convert namespaces in autoload.
+    if (!empty($config['autoload']['psr-4'])) {
+      $config['autoload']['psr-4'] = self::convertArrayKeysNamespaces($config['autoload']['psr-4'], self::ORIGINAL_NAMESPACE, $params['namespace']);
     }
 
-    if (empty($config['scripts'])) {
-      unset($config['scripts']);
+    // Convert namespaces in autoload-dev.
+    if (!empty($config['autoload-dev']['psr-4'])) {
+      $config['autoload-dev']['psr-4'] = self::convertArrayKeysNamespaces($config['autoload-dev']['psr-4'], self::ORIGINAL_NAMESPACE, $params['namespace']);
     }
 
+    $config = self::arrayFilterRecursive($config);
     $composer_json->write($config);
+  }
+
+  /**
+   * Update the Behat files.
+   *
+   * @param array $params
+   *   The array of parameters.
+   */
+  private static function updateBehatFiles(array $params): void {
+    $finder = new Finder();
+
+    // Update namespaces in behat classes.
+    $dirs = ['tests/Behat'];
+    $finder->files()->in($dirs);
+    foreach ($finder as $file) {
+      $filepath = $file->getRealPath();
+
+      // Update the namespace.
+      $file_contents = file_get_contents($filepath);
+      $pattern = '@^namespace ' . preg_quote(self::ORIGINAL_NAMESPACE) . '(.+;)$@m';
+      $replacement = 'namespace ' . preg_quote($params['namespace']) . '$1';
+      $file_contents = preg_replace($pattern, $replacement, $file_contents);
+      file_put_contents($filepath, $file_contents);
+    }
+
+    // Update namespaces in behat.yml.dist.
+    $filename = 'behat.yml.dist';
+    $file_contents = file_get_contents($filename);
+    $file_contents = str_replace(self::ORIGINAL_NAMESPACE, $params['namespace'], $file_contents);
+    file_put_contents($filename, $file_contents);
   }
 
   /**
@@ -202,6 +247,57 @@ class SetupWizard {
     rmdir('scripts/composer');
     rmdir('scripts');
     $event->getIO()->write('Setup wizard file cleaned.');
+  }
+
+  /**
+   * Convert namespaces in array keys to a given namespace.
+   *
+   * @param array $array
+   *   The array to convert.
+   * @param string $old_namespace
+   *   The old namespace.
+   * @param string $new_namespace
+   *   The new namespace.
+   *
+   * @return array
+   *   The array with converted keys.
+   */
+  private static function convertArrayKeysNamespaces(array $array, string $old_namespace, string $new_namespace): array {
+    $new_array = [];
+
+    foreach ($array as $key => $value) {
+      if (strpos($key, $old_namespace) !== FALSE) {
+        $new_namespace = str_replace($old_namespace, $new_namespace, $key);
+        $new_array[$new_namespace] = $value;
+      }
+      else {
+        $new_array[$key] = $value;
+      }
+    }
+
+    return $new_array;
+  }
+
+  /**
+   * Filters an array recursively.
+   *
+   * @param array $array
+   *   The filtered nested array.
+   * @param callable|null $callable
+   *   The callable to apply for filtering.
+   *
+   * @return array
+   *   The filtered array.
+   */
+  private static function arrayFilterRecursive(array $array, callable $callable = NULL): array {
+    foreach ($array as &$element) {
+      if (is_array($element)) {
+        $element = static::arrayFilterRecursive($element, $callable);
+      }
+    }
+
+    $array = is_callable($callable) ? array_filter($array, $callable) : array_filter($array);
+    return $array;
   }
 
 }
