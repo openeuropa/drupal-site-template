@@ -1,3 +1,5 @@
+**This project has been discontinued. If you need to kickstart development of a new site, please check: https://github.com/ec-europa/subsite/tree/release/9.x**
+
 # OpenEuropa template for Drupal 8 projects
 
 [![Build Status](https://drone.fpfis.eu/api/badges/openeuropa/drupal-site-template/status.svg?branch=master)](https://drone.fpfis.eu/openeuropa/drupal-site-template)
