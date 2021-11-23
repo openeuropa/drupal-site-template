@@ -10,7 +10,8 @@ parameters:
     - inc
     - theme
     - install
-    - yml
+    - info.yml
+    - routing.yml
 
   extensions:
     - OpenEuropa\CodeReview\ExtraTasksExtension
